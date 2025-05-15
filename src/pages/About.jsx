@@ -9,6 +9,7 @@ const AboutContainer = styled.div`
   padding: 4rem 2rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  min-height: 100vh;
 
   @media (max-width: 768px) {
     padding: 4rem 1rem 1rem;
@@ -18,10 +19,12 @@ const AboutContainer = styled.div`
 const Section = styled.section`
   margin-bottom: 4rem;
   padding: 0 1rem;
+  scroll-margin-top: 80px;
 
   @media (max-width: 768px) {
     margin-bottom: 3rem;
     padding: 0;
+    scroll-margin-top: 60px;
   }
 `;
 
@@ -65,6 +68,11 @@ const AboutGrid = styled.div`
     gap: 1.5rem;
     margin-top: 2rem;
   }
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
 `;
 
 const AboutCard = styled.div`
@@ -87,6 +95,11 @@ const AboutCard = styled.div`
 
   @media (max-width: 768px) {
     padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+    border-radius: 15px;
   }
 `;
 
@@ -134,8 +147,9 @@ const SkillsContainer = styled.div`
   }
 
   @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    padding: 0.5rem;
   }
 `;
 
@@ -181,12 +195,37 @@ const SkillCard = styled.div`
   @media (max-width: 768px) {
     padding: 1.5rem 1rem;
   }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    border-radius: 12px;
+
+    svg {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 const SkillName = styled.h3`
   font-size: 1.2rem;
   color: #fff;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+`;
+
+const SkillDescription = styled.p`
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
 `;
 
 const SkillLevel = styled.div`
@@ -204,16 +243,15 @@ const SkillLevel = styled.div`
     left: 0;
     top: 0;
     height: 100%;
-    width: 0;
+    width: ${props => props.progress || 0}%;
     background: linear-gradient(to right, #81d4fa, #b3e5fc);
     transition: width 0.8s ease;
   }
-`;
 
-const SkillDescription = styled.p`
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin-top: 0.5rem;
+  @media (max-width: 480px) {
+    height: 3px;
+    margin-top: 0.8rem;
+  }
 `;
 
 const About = () => {

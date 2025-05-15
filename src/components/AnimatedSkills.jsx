@@ -9,6 +9,16 @@ const AnimationContainer = styled.div`
   margin: 2rem auto;
   max-width: 1200px;
   padding: 0 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 `;
 
 const AnimationWrapper = styled.div`
@@ -53,6 +63,15 @@ const AnimationWrapper = styled.div`
     opacity: 0;
     transition: opacity 0.3s ease;
   }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+    border-radius: 15px;
+  }
 `;
 
 const AnimationTitle = styled.h3`
@@ -61,6 +80,16 @@ const AnimationTitle = styled.h3`
   margin: 1rem 0;
   text-align: center;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    margin: 0.8rem 0;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    margin: 0.6rem 0;
+  }
 `;
 
 const AnimationDescription = styled.p`
@@ -69,6 +98,16 @@ const AnimationDescription = styled.p`
   font-size: 0.9rem;
   margin-top: 0.5rem;
   z-index: 1;
+  line-height: 1.5;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
 `;
 
 const LottieWrapper = styled.div`
@@ -78,6 +117,16 @@ const LottieWrapper = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    width: 180px;
+    height: 180px;
+  }
+
+  @media (max-width: 480px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 const LoadingText = styled.div`
@@ -89,6 +138,12 @@ const LoadingText = styled.div`
   border-radius: 16px;
   margin: 2rem auto;
   max-width: 300px;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
 `;
 
 const AnimatedSkills = () => {
