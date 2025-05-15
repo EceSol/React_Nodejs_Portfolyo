@@ -14,7 +14,7 @@ const LayoutWrapper = styled.div`
     to bottom,
     #000000 0%,
     #1a237e 50%,
-    #4fc3f7 100%
+    #0d47a1 100%
   );
   color: white;
   overflow-x: hidden;

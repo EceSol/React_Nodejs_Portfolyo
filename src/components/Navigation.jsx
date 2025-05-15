@@ -16,14 +16,14 @@ const Nav = styled.nav`
 const Logo = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  color: #4fc3f7;
+  color: #81d4fa;
   margin-right: 3rem;
   cursor: pointer;
   transition: color 0.3s ease;
   min-width: 50px;
 
   &:hover {
-    color: #81d4fa;
+    color: #b3e5fc;
   }
 
   @media (max-width: 768px) {
@@ -54,7 +54,7 @@ const NavItems = styled.div`
 `;
 
 const NavItem = styled.a`
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   padding: 0.5rem 1rem;
   transition: all 0.3s ease;
@@ -63,8 +63,8 @@ const NavItem = styled.a`
   font-size: 1rem;
 
   &:hover {
-    background: rgba(79, 195, 247, 0.1);
-    color: #4fc3f7;
+    background: rgba(129, 212, 250, 0.15);
+    color: #81d4fa;
   }
 
   @media (max-width: 768px) {
@@ -78,7 +78,7 @@ const MenuButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: #4fc3f7;
+  color: #81d4fa;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;

@@ -15,7 +15,7 @@ const ExperienceContainer = styled.div`
 const Title = styled.h2`
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: #4fc3f7;
+  color: #2196F3;
   text-align: center;
 
   @media (max-width: 768px) {
@@ -37,9 +37,9 @@ const Timeline = styled.div`
     width: 2px;
     height: 100%;
     background: linear-gradient(to bottom, 
-      rgba(79, 195, 247, 0.2),
-      rgba(79, 195, 247, 0.6),
-      rgba(79, 195, 247, 0.2)
+      rgba(33, 150, 243, 0.2),
+      rgba(33, 150, 243, 0.5),
+      rgba(33, 150, 243, 0.2)
     );
 
     @media (max-width: 768px) {
@@ -79,8 +79,15 @@ const TimelineContent = styled.div`
   width: calc(100% - 50px);
   position: relative;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(79, 195, 247, 0.1);
+  border: 1px solid rgba(33, 150, 243, 0.1);
   transition: transform 0.3s ease;
+  color: ${props => {
+    const index = props.index || 0;
+    const totalItems = props.totalItems || 1;
+    // Create a gradient from lighter to darker text
+    const opacity = 0.7 + (0.3 * (index / totalItems));
+    return `rgba(255, 255, 255, ${opacity})`;
+  }};
 
   &:hover {
     transform: translateY(-5px);
@@ -96,7 +103,7 @@ const TimelineDot = styled.div`
   position: absolute;
   width: 40px;
   height: 40px;
-  background: #4fc3f7;
+  background: #1976D2;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -104,7 +111,7 @@ const TimelineDot = styled.div`
   color: white;
   left: calc(50% - 20px);
   top: 20px;
-  box-shadow: 0 0 20px rgba(79, 195, 247, 0.3);
+  box-shadow: 0 0 20px rgba(25, 118, 210, 0.3);
   z-index: 2;
 
   svg {
@@ -118,25 +125,50 @@ const TimelineDot = styled.div`
 
 const ItemTitle = styled.h4`
   font-size: 1.2rem;
-  color: #4fc3f7;
+  color: ${props => {
+    const index = props.index || 0;
+    const totalItems = props.totalItems || 1;
+    // Create a gradient from lighter to darker blue
+    const blueStart = [135, 206, 250]; // Light blue
+    const blueEnd = [25, 118, 210];   // Dark blue
+    const r = Math.round(blueStart[0] + (blueEnd[0] - blueStart[0]) * (index / totalItems));
+    const g = Math.round(blueStart[1] + (blueEnd[1] - blueStart[1]) * (index / totalItems));
+    const b = Math.round(blueStart[2] + (blueEnd[2] - blueStart[2]) * (index / totalItems));
+    return `rgb(${r}, ${g}, ${b})`;
+  }};
   margin-bottom: 0.5rem;
 `;
 
 const ItemSubtitle = styled.h5`
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${props => {
+    const index = props.index || 0;
+    const totalItems = props.totalItems || 1;
+    const opacity = 0.95 - (0.15 * (index / totalItems));
+    return `rgba(255, 255, 255, ${opacity})`;
+  }};
   margin-bottom: 0.5rem;
 `;
 
 const ItemDate = styled.span`
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: ${props => {
+    const index = props.index || 0;
+    const totalItems = props.totalItems || 1;
+    const opacity = 0.8 - (0.2 * (index / totalItems));
+    return `rgba(255, 255, 255, ${opacity})`;
+  }};
   display: block;
   margin-bottom: 1rem;
 `;
 
 const ItemDescription = styled.p`
-  color: rgba(255, 255, 255, 0.8);
+  color: ${props => {
+    const index = props.index || 0;
+    const totalItems = props.totalItems || 1;
+    const opacity = 0.9 - (0.1 * (index / totalItems));
+    return `rgba(255, 255, 255, ${opacity})`;
+  }};
   line-height: 1.6;
   font-size: 0.95rem;
 `;
@@ -145,13 +177,13 @@ const TypeBadge = styled.span`
   position: absolute;
   top: -10px;
   right: 20px;
-  background: ${props => props.type === 'education' ? '#4fc3f7' : '#81d4fa'};
+  background: ${props => props.type === 'education' ? '#1976D2' : '#2196F3'};
   color: white;
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
   font-size: 0.8rem;
   font-weight: 500;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 `;
 
 // Define experiences data outside the component
@@ -217,6 +249,8 @@ const Experience = () => {
     return aYear - bYear;
   });
 
+  const totalItems = sortedExperiences.length;
+
   return (
     <ExperienceContainer>
       <Title>Deneyim & Eğitim</Title>
@@ -224,14 +258,14 @@ const Experience = () => {
         {sortedExperiences.map((item, index) => (
           <TimelineItem key={index}>
             <TimelineDot>{item.icon}</TimelineDot>
-            <TimelineContent>
+            <TimelineContent index={index} totalItems={totalItems}>
               <TypeBadge type={item.type}>
                 {item.type === 'education' ? 'Eğitim' : 'Deneyim'}
               </TypeBadge>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemSubtitle>{item.subtitle}</ItemSubtitle>
-              <ItemDate>{item.date}</ItemDate>
-              <ItemDescription>{item.description}</ItemDescription>
+              <ItemTitle index={index} totalItems={totalItems}>{item.title}</ItemTitle>
+              <ItemSubtitle index={index} totalItems={totalItems}>{item.subtitle}</ItemSubtitle>
+              <ItemDate index={index} totalItems={totalItems}>{item.date}</ItemDate>
+              <ItemDescription index={index} totalItems={totalItems}>{item.description}</ItemDescription>
             </TimelineContent>
           </TimelineItem>
         ))}

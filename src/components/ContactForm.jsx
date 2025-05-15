@@ -29,7 +29,7 @@ const InputGroup = styled.div`
 `;
 
 const Label = styled.label`
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   font-size: 0.9rem;
   margin-left: 0.5rem;
 `;
@@ -38,7 +38,7 @@ const Input = styled.input`
   padding: 1rem;
   border: 2px solid transparent;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: white;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -54,12 +54,12 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #4fc3f7;
-    background: rgba(255, 255, 255, 0.15);
+    border-color: #81d4fa;
+    background: rgba(255, 255, 255, 0.2);
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
   }
 `;
 
@@ -67,7 +67,7 @@ const TextArea = styled.textarea`
   padding: 1rem;
   border: 2px solid transparent;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: white;
   font-size: 1rem;
   min-height: 150px;
@@ -86,12 +86,12 @@ const TextArea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: #4fc3f7;
-    background: rgba(255, 255, 255, 0.15);
+    border-color: #81d4fa;
+    background: rgba(255, 255, 255, 0.2);
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
   }
 `;
 
@@ -99,8 +99,8 @@ const Button = styled.button`
   padding: 1rem 2rem;
   border: none;
   border-radius: 8px;
-  background: #4fc3f7;
-  color: white;
+  background: #81d4fa;
+  color: #1a237e;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -113,7 +113,7 @@ const Button = styled.button`
   }
 
   &:hover {
-    background: #29b6f6;
+    background: #b3e5fc;
     transform: translateY(-2px);
   }
 
@@ -122,7 +122,7 @@ const Button = styled.button`
   }
 
   &:disabled {
-    background: rgba(79, 195, 247, 0.5);
+    background: rgba(129, 212, 250, 0.5);
     cursor: not-allowed;
     transform: none;
   }

@@ -16,7 +16,7 @@ const ContactContainer = styled.div`
 const Title = styled.h2`
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: #4fc3f7;
+  color: #81d4fa;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -32,7 +32,7 @@ const Title = styled.h2`
 const Text = styled.p`
   font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 2rem;
 
   @media (max-width: 768px) {
@@ -62,7 +62,7 @@ const SocialLinks = styled.div`
 `;
 
 const SocialLink = styled.a`
-  color: #4fc3f7;
+  color: #81d4fa;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -79,13 +79,13 @@ const SocialLink = styled.a`
   @media (max-width: 480px) {
     width: 100%;
     padding: 0.8rem;
-    background: rgba(79, 195, 247, 0.1);
+    background: rgba(129, 212, 250, 0.1);
   }
 
   &:hover {
-    color: #29b6f6;
+    color: #b3e5fc;
     transform: translateY(-2px);
-    background: rgba(79, 195, 247, 0.1);
+    background: rgba(129, 212, 250, 0.15);
   }
 
   svg {
