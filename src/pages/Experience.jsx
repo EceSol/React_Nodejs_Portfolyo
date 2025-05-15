@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaGraduationCap, FaLaptopCode, FaRocket, FaBrain } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const ExperienceContainer = styled.div`
   padding: 4rem 2rem 2rem;
@@ -59,7 +60,7 @@ const Timeline = styled.div`
   }
 `;
 
-const TimelineItem = styled.div`
+const TimelineItem = styled(motion.div)`
   display: flex;
   justify-content: flex-end;
   padding-right: 50%;
@@ -87,7 +88,7 @@ const TimelineItem = styled.div`
   }
 `;
 
-const TimelineContent = styled.div`
+const TimelineContent = styled(motion.div)`
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 12px;
@@ -260,26 +261,58 @@ const experiencesData = [
 
 const Experience = () => {
   const sortedExperiences = [...experiencesData].sort((a, b) => a.order - b.order);
-
   const totalItems = sortedExperiences.length;
-
-
 
   return (
     <ExperienceContainer>
       <Title>Deneyim & Eğitim</Title>
       <Timeline>
         {sortedExperiences.map((item, index) => (
-          <TimelineItem key={index}>
+          <TimelineItem
+            key={index}
+            initial={{ 
+              opacity: 0, 
+              x: index % 2 === 0 ? -50 : 50,
+              filter: "blur(4px)"
+            }}
+            whileInView={{ 
+              opacity: 1, 
+              x: 0,
+              filter: "blur(0px)"
+            }}
+            viewport={{ 
+              once: true,
+              amount: 0.3,
+              margin: "-50px"
+            }}
+            transition={{ 
+              duration: 0.5, 
+              delay: index * 0.1,
+              ease: "easeOut"
+            }}
+          >
             <TimelineDot>{item.icon}</TimelineDot>
-            <TimelineContent index={index} totalItems={totalItems}>
+            <TimelineContent
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ 
+                once: true,
+                amount: 0.3,
+                margin: "-50px"
+              }}
+              transition={{ 
+                duration: 0.3, 
+                delay: index * 0.1 + 0.2,
+                ease: "easeOut"
+              }}
+            >
               <TypeBadge type={item.type}>
                 {item.type === 'education' ? 'Eğitim' : 'Deneyim'}
               </TypeBadge>
-              <ItemTitle index={index} totalItems={totalItems}>{item.title}</ItemTitle>
-              <ItemSubtitle index={index} totalItems={totalItems}>{item.subtitle}</ItemSubtitle>
-              <ItemDate index={index} totalItems={totalItems}>{item.date}</ItemDate>
-              <ItemDescription index={index} totalItems={totalItems}>{item.description}</ItemDescription>
+              <ItemTitle>{item.title}</ItemTitle>
+              <ItemSubtitle>{item.subtitle}</ItemSubtitle>
+              <ItemDate>{item.date}</ItemDate>
+              <ItemDescription>{item.description}</ItemDescription>
             </TimelineContent>
           </TimelineItem>
         ))}

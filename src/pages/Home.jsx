@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const HomeContainer = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const HomeContainer = styled.div`
   }
 `;
 
-const Title = styled.h1`
+const Title = styled(motion.h1)`
   font-size: 4rem;
   margin-bottom: 2rem;
   background: linear-gradient(45deg, #fff, #4fc3f7);
@@ -35,7 +36,7 @@ const Title = styled.h1`
   }
 `;
 
-const Subtitle = styled.p`
+const Subtitle = styled(motion.p)`
   font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
@@ -54,8 +55,18 @@ const Subtitle = styled.p`
 const Home = () => {
   return (
     <HomeContainer>
-      <Title>Merhaba, Ben Ece Sol</Title>
-      <Subtitle>
+      <Title
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Merhaba, Ben Ece Sol
+      </Title>
+      <Subtitle
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         Yazılım geliştirme tutkusu ile hareket eden, yenilikçi çözümler üreten
         bir geliştiriciyim. Python ve web teknolojileri konusunda deneyimliyim.
       </Subtitle>

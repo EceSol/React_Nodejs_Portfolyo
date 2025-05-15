@@ -11,7 +11,12 @@ const Nav = styled.nav`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.8);
+  background: linear-gradient(to right, 
+    #000000 0%,
+    #0d47a1 40%,
+    #1565c0 70%,
+    #1976d2 100%
+  );
   backdrop-filter: blur(10px);
 
   @media (max-width: 768px) {
@@ -56,8 +61,12 @@ const NavItems = styled.div`
     top: 60px;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(to bottom, 
+      #000000 0%,
+      #0d47a1 40%,
+      #1565c0 70%,
+      #1976d2 100%
+    );
     padding: 1rem;
     gap: 0.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);

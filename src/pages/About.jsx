@@ -4,6 +4,7 @@ import { DiPython, DiJava, DiReact } from 'react-icons/di';
 import { SiFlutter, SiCsharp } from 'react-icons/si';
 import { FaUserGraduate, FaCode, FaLaptopCode } from 'react-icons/fa';
 import AnimatedSkills from '../components/AnimatedSkills';
+import { motion } from 'framer-motion';
 
 const AboutContainer = styled.div`
   padding: 4rem 2rem 2rem;
@@ -75,7 +76,7 @@ const AboutGrid = styled.div`
   }
 `;
 
-const AboutCard = styled.div`
+const AboutCard = styled(motion.div)`
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.1) 0%,
@@ -153,7 +154,7 @@ const SkillsContainer = styled.div`
   }
 `;
 
-const SkillCard = styled.div`
+const SkillCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   padding: 2rem 1.5rem;
@@ -199,10 +200,6 @@ const SkillCard = styled.div`
   @media (max-width: 480px) {
     padding: 1rem;
     border-radius: 12px;
-
-    svg {
-      font-size: 2.5rem;
-    }
   }
 `;
 
@@ -288,40 +285,58 @@ const About = () => {
     }
   ];
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const skillVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1 }
+  };
+
   return (
     <AboutContainer>
       <Section>
         <Title>Ben Kimim?</Title>
         <AboutGrid>
-          <AboutCard>
-            <CardTitle>
-              <FaLaptopCode />
-              Geliştirme
-            </CardTitle>
-            <CardText>
-              Yazılım geliştirme ve teknolojiye olan tutkumla, modern ve kullanıcı dostu uygulamalar geliştiriyorum.
-            </CardText>
-          </AboutCard>
-
-          <AboutCard>
-            <CardTitle>
-              <FaCode />
-              Uzmanlık
-            </CardTitle>
-            <CardText>
-              Algoritmalar ve programlama konusunda güçlü bir temele sahibim. C#, Java, Flutter ve Python dillerinde deneyimliyim.
-            </CardText>
-          </AboutCard>
-
-          <AboutCard>
-            <CardTitle>
-              <FaUserGraduate />
-              Eğitim
-            </CardTitle>
-            <CardText>
-              Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum.
-            </CardText>
-          </AboutCard>
+          {[
+            {
+              icon: <FaLaptopCode />,
+              title: "Geliştirme",
+              text: "Yazılım geliştirme ve teknolojiye olan tutkumla, modern ve kullanıcı dostu uygulamalar geliştiriyorum."
+            },
+            {
+              icon: <FaCode />,
+              title: "Uzmanlık",
+              text: "Algoritmalar ve programlama konusunda güçlü bir temele sahibim. C#, Java, Flutter ve Python dillerinde deneyimliyim."
+            },
+            {
+              icon: <FaUserGraduate />,
+              title: "Eğitim",
+              text: "Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum."
+            }
+          ].map((card, index) => (
+            <AboutCard
+              key={index}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.3,
+                delay: index * 0.1
+              }}
+            >
+              <CardTitle>
+                {card.icon}
+                {card.title}
+              </CardTitle>
+              <CardText>
+                {card.text}
+              </CardText>
+            </AboutCard>
+          ))}
         </AboutGrid>
       </Section>
 
@@ -330,11 +345,22 @@ const About = () => {
         <AnimatedSkills />
         <SkillsContainer>
           {skills.map((skill, index) => (
-            <SkillCard key={index} progress={skill.level}>
+            <SkillCard
+              key={index}
+              variants={skillVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.3,
+                delay: index * 0.1
+              }}
+              progress={skill.level}
+            >
               {skill.icon}
               <SkillName>{skill.name}</SkillName>
               <SkillDescription>{skill.description}</SkillDescription>
-              <SkillLevel />
+              <SkillLevel progress={skill.level} />
             </SkillCard>
           ))}
         </SkillsContainer>
