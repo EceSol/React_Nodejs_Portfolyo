@@ -4,6 +4,7 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const ProjectsContainer = styled.div`
   padding: 2rem 0;
+  scroll-margin-top: 80px;
 `;
 
 const Title = styled.h2`
@@ -174,11 +175,32 @@ const Projects = () => {
     : featuredProjects;
 
   const toggleProjects = () => {
-    setShowAllProjects(!showAllProjects);
+    if (showAllProjects) {
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        // Scroll işlemini başlat
+        projectsSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+        // Geçici olarak scroll'u kilitle
+        document.body.style.overflow = 'hidden';
+
+        // Scroll tamamlanana kadar bekle
+        setTimeout(() => {
+          setShowAllProjects(false);
+          // Scroll kilidini kaldır
+          document.body.style.overflow = 'auto';
+        }, 500);
+      }
+    } else {
+      setShowAllProjects(true);
+    }
   };
 
   return (
-    <ProjectsContainer>
+    <ProjectsContainer id="projects">
       <Title>Projelerim</Title>
       <ProjectGrid>
         {displayedProjects.map((project, index) => (
