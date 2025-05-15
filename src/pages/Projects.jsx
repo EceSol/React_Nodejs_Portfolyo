@@ -57,45 +57,45 @@ const Tech = styled.span`
   font-size: 0.9rem;
 `;
 
-const Links = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const Link = styled.a`
-  color: #4fc3f7;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #29b6f6;
-  }
+const DateRange = styled.span`
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 1rem;
 `;
 
 const Projects = () => {
   const projects = [
     {
-      title: 'Snake Game',
-      description: 'Python ile geliştirilmiş klasik yılan oyunu.',
-      techStack: ['Python'],
-      githubLink: 'https://github.com/EceSol/Snake_Game',
+      title: 'Yemek Tarif Asistanı',
+      description: 'Fromscrape ve Backend. Proje: Python dilini web kazıma amacıyla bu projede eliçizdeki malzemeleri girdiğiniz size yemek tarifi sunması. İsterseniz yemek türünü, mutfak türünü, alerjen olduğunuz bilgilerinizi girdiğinizde tarif sunan bir bot.',
+      techStack: ['Python', 'Web Scraping', 'Backend'],
+      date: '2024-2025'
     },
     {
       title: 'Şifre Yönetim Uygulaması',
-      description: 'Kullanıcıların şifrelerini güvenli bir şekilde saklayabilecekleri bir uygulama.',
-      techStack: ['Python'],
-      githubLink: 'https://github.com/EceSol/sifre_yonetim_uygulama',
+      description: 'İlk başıma yazdığım bu projede Python dilini ve açıklık olarak PyQt5 kütüphanesini kullandım. Projenin amacı günümüz problemlerinden biri olan şifre unutmanın önüne geçmekti. Kullandığımız bütün platformların şifresini tek platformda birleştiren bir uygulama.',
+      techStack: ['Python', 'PyQt5'],
+      date: '2025-Devam Ediyor'
     },
     {
-      title: 'PyQt5 Soru Bankası',
-      description: 'PyQt5 kütüphanesi kullanılarak geliştirilmiş soru bankası uygulaması.',
-      techStack: ['Python', 'PyQt5'],
-      githubLink: 'https://github.com/EceSol/PyQt5_Soru_Bankasi',
+      title: 'Topluluk Yönetim Uygulaması',
+      description: 'Takım kaptanıyım ve aynı zamanda Flutter geliştirme ekibindeyim. Proje: Flutter ve PHP kullanarak topluluklara SKS üzerinden yapıştıran işlemleri mobil uygulama ve web tabanlı bir sisteme geçirip bütün süreçleri optimize ve daha hızlı hale getirmek amacıyla bir projedir.',
+      techStack: ['Flutter', 'PHP', 'Mobile Development'],
+      date: '2024-Devam Ediyor'
     },
+    {
+      title: 'Kamp Oyunu',
+      description: 'Unity kullanarak oyun mekaniklerini C# ile kodladım. Oyunun performans optimizasyonu üzerinde çalıştım ve çeşitli oyun içi özelliklerin geliştirilmesini gerçekleştirdim. Proje: Türkiye\'deki kamp alanlarını oyunlaştırarak tanıtmak ve turizmde yeni bir bakış açısı getirmek.',
+      techStack: ['Unity', 'C#', 'Game Development'],
+      date: '2023-2024'
+    },
+    {
+      title: 'Roket Projesi',
+      description: 'Roket takımında sosyal medya içeriklerini yönetim, projenin zamanlarına uygun medya planlaması yapım ve proje tanıtıcı içerikler oluşturdum.',
+      techStack: ['Social Media Management', 'Project Management'],
+      date: '2023-2024'
+    }
   ];
 
   return (
@@ -105,22 +105,13 @@ const Projects = () => {
         {projects.map((project, index) => (
           <ProjectCard key={index}>
             <ProjectTitle>{project.title}</ProjectTitle>
+            <DateRange>{project.date}</DateRange>
             <ProjectDescription>{project.description}</ProjectDescription>
             <TechStack>
               {project.techStack.map((tech, techIndex) => (
                 <Tech key={techIndex}>{tech}</Tech>
               ))}
             </TechStack>
-            <Links>
-              <Link href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                <FaGithub /> GitHub
-              </Link>
-              {project.demoLink && (
-                <Link href={project.demoLink} target="_blank" rel="noopener noreferrer">
-                  <FaExternalLinkAlt /> Demo
-                </Link>
-              )}
-            </Links>
           </ProjectCard>
         ))}
       </ProjectGrid>

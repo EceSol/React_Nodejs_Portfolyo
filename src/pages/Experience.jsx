@@ -75,27 +75,33 @@ const Experience = () => {
   const experiences = [
     {
       title: 'Eğitim',
-      subtitle: 'Yazılım Mühendisliği',
-      date: '2020 - Devam Ediyor',
-      description: 'Yazılım mühendisliği alanında eğitimime devam ediyorum. Özellikle web teknolojileri ve Python programlama konularında uzmanlaşmaya çalışıyorum.'
+      subtitle: 'Balıkesir Üniversitesi - Bilgisayar Mühendisliği',
+      date: '2023 - Devam ediyor',
+      description: 'GPA: 3.1'
     },
     {
-      title: 'Topluluk Katılımı',
-      subtitle: 'GitHub Projeleri',
-      date: '2023 - Devam Ediyor',
-      description: 'Açık kaynak projelere katkıda bulunuyor ve kendi projelerimi GitHub üzerinde paylaşıyorum. Python ve PyQt5 ile geliştirdiğim uygulamalar başta olmak üzere çeşitli projeler üzerinde çalışıyorum.'
+      title: 'Lise Eğitimi',
+      subtitle: 'Eskişehir Beylikova Fen Lisesi',
+      date: '2018-2022',
+      description: ''
     },
     {
-      title: 'Kişisel Gelişim',
-      subtitle: 'Web Geliştirme',
-      date: '2023 - Devam Ediyor',
-      description: 'React ve Node.js teknolojilerini öğrenerek modern web uygulamaları geliştirme konusunda kendimi geliştiriyorum. Kullanıcı deneyimi ve arayüz tasarımı konularında da bilgi sahibiyim.'
+      title: 'Topluluk Üyelikleri',
+      subtitle: 'Computer Society & MISYA & SI-RA',
+      date: '2023-2024',
+      description: 'Computer Society Başkanı ve Teknik Ekip Üyesi olarak görev alıyorum. MISYA öğrenci topluluğunda aktif üyeyim. SI-RA Yüksek İrfa Roket Takımı Sosyal Medya Sorumlusu olarak çalışıyorum.'
+    },
+    {
+      title: 'Diğer Üyelikler',
+      subtitle: 'BAUN Yapay Zeka Takımı & AFAD',
+      date: '2023-2024',
+      description: 'BAUN Yapay Zeka Takımı ve AFAD üyesiyim.'
     }
   ];
 
   return (
     <ExperienceContainer>
-      <Title>Deneyim</Title>
+      <Title>Deneyim & Eğitim</Title>
       <Timeline>
         {experiences.map((exp, index) => (
           <TimelineItem key={index}>

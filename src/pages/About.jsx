@@ -43,16 +43,30 @@ const Skill = styled.div`
   }
 `;
 
+const ContactInfo = styled.div`
+  margin-top: 2rem;
+  
+  a {
+    color: #4fc3f7;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
 const About = () => {
   const skills = [
+    'C# Temel',
+    'Java Temel',
     'Python',
-    'PyQt5',
-    'Web Development',
-    'React',
-    'Node.js',
-    'Git',
-    'Problem Solving',
-    'UI/UX Design'
+    'Flutter',
+    'PHP',
+    'Proje Yönetimi',
+    'Analitik Düşünme',
+    'Problem Çözme',
+    'Takım Çalışması',
+    'İletişim'
   ];
 
   return (
@@ -60,16 +74,22 @@ const About = () => {
       <Section>
         <Title>Ben Kimim?</Title>
         <Text>
-          Yazılım geliştirme dünyasında kendini sürekli geliştirmeye odaklanan
-          bir geliştiriciyim. Python ve web teknolojileri konusunda özel bir
-          ilgim var ve bu alanlarda projeler geliştiriyorum.
+          Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Yazılım geliştirme ve teknolojiye olan ilgimle
+          birlikte öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Algoritmalar ve programlama konusunda
+          güçlü bir temele sahibim. C#, Java, Flutter ve Python dillerinde deneyimim var.
         </Text>
         <Text>
-          Özellikle PyQt5 kullanarak masaüstü uygulamaları geliştirme konusunda
-          deneyim sahibiyim. Aynı zamanda web teknolojilerine olan ilgim
-          nedeniyle React ve Node.js gibi modern teknolojileri öğrenmeye ve
-          kullanmaya devam ediyorum.
+          Proje yönetimi ve takım çalışmasında tecrübeli, teknolojiye meraklı ve kendini sürekli geliştiren biriyim.
+          Yazılım dünyasında kendimi geliştirerek mühendislik kariyerime sağlam adımlarla başlamak hedefim.
         </Text>
+        <ContactInfo>
+          <Text>
+            E-mail: <a href="mailto:ecegeceesol@gmail.com">ecegeceesol@gmail.com</a>
+          </Text>
+          <Text>
+            Telefon: 05316063053
+          </Text>
+        </ContactInfo>
       </Section>
 
       <Section>
