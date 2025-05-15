@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ContactForm from '../components/ContactForm';
-import { FaGithub, FaTwitter, FaFacebook, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaTwitter, FaFacebook, FaEnvelope, FaLinkedin } from 'react-icons/fa';
 
 const ContactContainer = styled.div`
   padding: 2rem;
@@ -111,13 +111,10 @@ const Contact = () => {
         <SocialLink href="https://github.com/EceSol" target="_blank" rel="noopener noreferrer">
           <FaGithub /> GitHub
         </SocialLink>
-        <SocialLink href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <FaTwitter /> Twitter
+        <SocialLink href="https://www.linkedin.com/in/ece-sol-09876829a/" target="_blank" rel="noopener noreferrer">
+          <FaLinkedin /> LinkedIn
         </SocialLink>
-        <SocialLink href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-          <FaFacebook /> Facebook
-        </SocialLink>
-        <SocialLink href="mailto:contact@example.com">
+        <SocialLink href="mailto:cengecesol@gmail.com">
           <FaEnvelope /> E-posta
         </SocialLink>
       </SocialLinks>
