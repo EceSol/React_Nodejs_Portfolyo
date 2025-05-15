@@ -5,13 +5,13 @@ const AvatarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  width: 100%;
 `;
 
 const AvatarImage = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
+  width: 280px;
+  height: 350px;
+  border-radius: 20px;
   object-fit: cover;
   margin-bottom: 1rem;
   border: 3px solid #4fc3f7;
@@ -28,6 +28,7 @@ const BrandName = styled.h1`
   font-size: 2.5rem;
   margin: 1rem 0;
   color: #4fc3f7;
+  text-align: center;
 `;
 
 const Avatar = () => {

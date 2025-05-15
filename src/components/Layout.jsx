@@ -39,9 +39,11 @@ const Sidebar = styled.div`
   padding: 2rem;
   position: fixed;
   height: calc(100vh - 60px);
-  top: 120px;
+  top: 60px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MainContent = styled.div`

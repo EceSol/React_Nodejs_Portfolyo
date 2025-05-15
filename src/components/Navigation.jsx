@@ -15,7 +15,7 @@ const Logo = styled.div`
   margin-right: 3rem;
   cursor: pointer;
   transition: color 0.3s ease;
-  width: 250px;
+  min-width: 100px;
 
   &:hover {
     color: #81d4fa;
@@ -25,7 +25,8 @@ const Logo = styled.div`
 const NavItems = styled.div`
   display: flex;
   gap: 2rem;
-  padding-left: 2rem;
+  margin-left: auto;
+  padding-right: 2rem;
 `;
 
 const NavItem = styled.a`
