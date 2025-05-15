@@ -186,9 +186,7 @@ const About = () => {
           <Text>
             E-mail: <a href="mailto:ecegeceesol@gmail.com">ecegeceesol@gmail.com</a>
           </Text>
-          <Text>
-            Telefon: 05316063053
-          </Text>
+         
         </ContactInfo>
       </Section>
 
