@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { DiPython, DiJava, DiReact } from 'react-icons/di';
 import { SiFlutter, SiCsharp } from 'react-icons/si';
+import AnimatedSkills from '../components/AnimatedSkills';
 
 const AboutContainer = styled.div`
   padding: 2rem 0;
@@ -193,6 +194,7 @@ const About = () => {
 
       <Section>
         <Title>Yeteneklerim</Title>
+        <AnimatedSkills />
         <SkillsContainer>
           {skills.map((skill, index) => (
             <SkillCard key={index} progress={skill.level}>
