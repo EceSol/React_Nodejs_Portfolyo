@@ -6,7 +6,13 @@ const Nav = styled.nav`
   align-items: center;
   height: 60px;
   padding: 0 2rem;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
 
   @media (max-width: 768px) {
     padding: 0 1rem;
@@ -21,6 +27,7 @@ const Logo = styled.div`
   cursor: pointer;
   transition: color 0.3s ease;
   min-width: 50px;
+  z-index: 1001;
 
   &:hover {
     color: #b3e5fc;
@@ -29,6 +36,10 @@ const Logo = styled.div`
   @media (max-width: 768px) {
     font-size: 1.8rem;
     margin-right: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
   }
 `;
 
@@ -41,29 +52,36 @@ const NavItems = styled.div`
   @media (max-width: 768px) {
     display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 60px;
     left: 0;
     right: 0;
-    background: linear-gradient(to bottom, 
-      #000000 0%,
-      #0d47a1 40%,
-      #1565c0 70%,
-      #1976d2 100%
-    );
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
     padding: 1rem;
-    gap: 1rem;
+    gap: 0.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 `;
 
 const NavItem = styled.a`
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1.2rem;
   transition: all 0.3s ease;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   position: relative;
@@ -97,9 +115,14 @@ const NavItem = styled.a`
     width: 100%;
     text-align: center;
     padding: 1rem;
+    border-radius: 4px;
     
     &:hover {
       background: rgba(129, 212, 250, 0.15);
+    }
+
+    &:active {
+      transform: scale(0.98);
     }
   }
 `;
@@ -113,9 +136,22 @@ const MenuButton = styled.button`
   cursor: pointer;
   padding: 0.5rem;
   margin-left: auto;
+  z-index: 1001;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #b3e5fc;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 
   @media (max-width: 768px) {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

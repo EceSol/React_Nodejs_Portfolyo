@@ -8,6 +8,14 @@ const HomeContainer = styled.div`
   align-items: flex-start;
   max-width: 800px;
   width: 100%;
+  padding: 0 2rem;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const Title = styled.h1`
@@ -16,6 +24,15 @@ const Title = styled.h1`
   background: linear-gradient(45deg, #fff, #4fc3f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const Subtitle = styled.p`
@@ -23,6 +40,15 @@ const Subtitle = styled.p`
   color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
   line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const Home = () => {

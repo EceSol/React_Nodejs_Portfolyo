@@ -6,19 +6,28 @@ import { FaUserGraduate, FaCode, FaLaptopCode } from 'react-icons/fa';
 import AnimatedSkills from '../components/AnimatedSkills';
 
 const AboutContainer = styled.div`
-  padding: 2rem 0;
+  padding: 4rem 2rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 4rem 1rem 1rem;
+  }
 `;
 
 const Section = styled.section`
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   padding: 0 1rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 3rem;
+    padding: 0;
+  }
 `;
 
 const Title = styled.h2`
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   color: #81d4fa;
   text-align: center;
   position: relative;
@@ -34,6 +43,15 @@ const Title = styled.h2`
     background: linear-gradient(90deg, #81d4fa, #1976d2);
     border-radius: 2px;
   }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const AboutGrid = styled.div`
@@ -41,6 +59,12 @@ const AboutGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
 `;
 
 const AboutCard = styled.div`
@@ -60,6 +84,10 @@ const AboutCard = styled.div`
     border-color: rgba(129, 212, 250, 0.3);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;
 
 const CardTitle = styled.h3`
@@ -73,6 +101,10 @@ const CardTitle = styled.h3`
   svg {
     font-size: 1.5rem;
   }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const CardText = styled.p`
@@ -80,6 +112,11 @@ const CardText = styled.p`
   line-height: 1.6;
   margin-bottom: 1rem;
   font-size: 1.1rem;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 `;
 
 const SkillsContainer = styled.div`
@@ -94,6 +131,11 @@ const SkillsContainer = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     padding: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 `;
 
@@ -134,19 +176,10 @@ const SkillCard = styled.div`
       transform: scale(1.1) rotate(5deg);
       color: #81d4fa;
     }
-
-    ${props => props.progress && `
-      &:after {
-        width: ${props.progress}%;
-      }
-    `}
   }
 
-  svg {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #b3e5fc;
-    transition: all 0.3s ease;
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
   }
 `;
 

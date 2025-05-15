@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { FaGraduationCap, FaLaptopCode, FaRocket, FaBrain } from 'react-icons/fa';
 
 const ExperienceContainer = styled.div`
-  padding: 2rem;
+  padding: 4rem 2rem 2rem;
   max-width: 1000px;
   width: 100%;
+  margin: 0 auto;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 4rem 1rem 1rem;
   }
 `;
 
@@ -22,12 +23,18 @@ const Title = styled.h2`
     font-size: 2rem;
     margin-bottom: 2rem;
   }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Timeline = styled.div`
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 20px;
 
   &::before {
     content: '';
@@ -45,6 +52,10 @@ const Timeline = styled.div`
     @media (max-width: 768px) {
       left: 30px;
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
   }
 `;
 
@@ -64,11 +75,15 @@ const TimelineItem = styled.div`
   @media (max-width: 768px) {
     padding-right: 0;
     padding-left: 60px;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 
     &:nth-child(even) {
       padding-left: 60px;
     }
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 2rem;
   }
 `;
 
@@ -81,13 +96,6 @@ const TimelineContent = styled.div`
   backdrop-filter: blur(10px);
   border: 1px solid rgba(33, 150, 243, 0.1);
   transition: transform 0.3s ease;
-  color: ${props => {
-    const index = props.index || 0;
-    const totalItems = props.totalItems || 1;
-    // Create a gradient from lighter to darker text
-    const opacity = 0.7 + (0.3 * (index / totalItems));
-    return `rgba(255, 255, 255, ${opacity})`;
-  }};
 
   &:hover {
     transform: translateY(-5px);
@@ -96,6 +104,11 @@ const TimelineContent = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
+    padding: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
   }
 `;
 
@@ -120,57 +133,60 @@ const TimelineDot = styled.div`
 
   @media (max-width: 768px) {
     left: 10px;
+    width: 35px;
+    height: 35px;
+
+    svg {
+      font-size: 1em;
+    }
   }
 `;
 
 const ItemTitle = styled.h4`
   font-size: 1.2rem;
-  color: ${props => {
-    const index = props.index || 0;
-    const totalItems = props.totalItems || 1;
-    // Create a gradient from lighter to darker blue
-    const blueStart = [135, 206, 250]; // Light blue
-    const blueEnd = [25, 118, 210];   // Dark blue
-    const r = Math.round(blueStart[0] + (blueEnd[0] - blueStart[0]) * (index / totalItems));
-    const g = Math.round(blueStart[1] + (blueEnd[1] - blueStart[1]) * (index / totalItems));
-    const b = Math.round(blueStart[2] + (blueEnd[2] - blueStart[2]) * (index / totalItems));
-    return `rgb(${r}, ${g}, ${b})`;
-  }};
+  color: #81d4fa;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const ItemSubtitle = styled.h5`
   font-size: 1rem;
-  color: ${props => {
-    const index = props.index || 0;
-    const totalItems = props.totalItems || 1;
-    const opacity = 0.95 - (0.15 * (index / totalItems));
-    return `rgba(255, 255, 255, ${opacity})`;
-  }};
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 0.5rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ItemDate = styled.span`
   font-size: 0.9rem;
-  color: ${props => {
-    const index = props.index || 0;
-    const totalItems = props.totalItems || 1;
-    const opacity = 0.8 - (0.2 * (index / totalItems));
-    return `rgba(255, 255, 255, ${opacity})`;
-  }};
+  color: rgba(255, 255, 255, 0.8);
   display: block;
   margin-bottom: 1rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const ItemDescription = styled.p`
-  color: ${props => {
-    const index = props.index || 0;
-    const totalItems = props.totalItems || 1;
-    const opacity = 0.9 - (0.1 * (index / totalItems));
-    return `rgba(255, 255, 255, ${opacity})`;
-  }};
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   font-size: 0.95rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
 `;
 
 const TypeBadge = styled.span`
@@ -184,6 +200,13 @@ const TypeBadge = styled.span`
   font-size: 0.8rem;
   font-weight: 500;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    top: -8px;
+    right: 15px;
+  }
 `;
 
 // Define experiences data outside the component
