@@ -106,20 +106,19 @@ const Projects = () => {
       title: 'Yemek Tarif Asistanı',
       description: 'Fromscrape ve Backend kullanarak geliştirilen, elinizde olan malzemelere göre yemek tarifi sunan akıllı bir asistan. Kullanıcıların yemek türü, mutfak tercihi ve alerjen bilgilerini dikkate alarak kişiselleştirilmiş tarifler sunar.',
       techStack: ['Python', 'Web Scraping', 'Backend'],
-      github: 'https://github.com/yourusername/yemek-tarif-asistani'
+      github: 'https://github.com/k0laa/Yemek_Tarif_Asistani'
     },
     {
       title: 'Şifre Yönetim Uygulaması',
       description: 'PyQt5 kullanarak geliştirilen, kullanıcıların tüm platform şifrelerini güvenli bir şekilde saklayıp yönetebilecekleri bir masaüstü uygulaması. Şifreleme algoritmaları ve güvenli depolama özellikleri içerir.',
       techStack: ['Python', 'PyQt5', 'Cryptography'],
-      github: 'https://github.com/yourusername/sifre-yonetimi'
+      github: 'https://github.com/EceSol/sifre_yonetim_uygulama'
     },
     {
       title: 'Snake Game',
       description: 'Klasik yılan oyununun modern bir yorumu. Özel efektler, skor sistemi ve farklı zorluk seviyeleri içeren, JavaScript kullanılarak geliştirilmiş bir web oyunu.',
       techStack: ['JavaScript', 'HTML5', 'CSS3'],
-      github: 'https://github.com/yourusername/snake-game',
-      demo: 'https://yourusername.github.io/snake-game'
+      github: 'https://github.com/EceSol/Snake_Game',
     }
   ];
 
@@ -128,13 +127,13 @@ const Projects = () => {
       title: 'Topluluk Yönetim Uygulaması',
       description: 'Flutter ve PHP kullanarak geliştirilen, topluluk etkinliklerini ve üye yönetimini kolaylaştıran mobil uygulama. SKS süreçlerini optimize eder ve dijitalleştirir.',
       techStack: ['Flutter', 'PHP', 'Mobile Development'],
-      github: 'https://github.com/yourusername/topluluk-yonetim'
+     
     },
     {
       title: 'Kamp Oyunu',
       description: 'Unity ve C# kullanarak geliştirilen, Türkiye\'deki kamp alanlarını tanıtan interaktif bir oyun. Performans optimizasyonu ve oyun mekaniği geliştirmeleri içerir.',
       techStack: ['Unity', 'C#', 'Game Development'],
-      github: 'https://github.com/yourusername/kamp-oyunu'
+   
     },
     {
       title: 'Roket Projesi',
@@ -145,13 +144,13 @@ const Projects = () => {
       title: 'To-Do List Uygulaması',
       description: 'React ve TypeScript kullanılarak geliştirilen, görev yönetimi ve organizasyon uygulaması.',
       techStack: ['React', 'TypeScript', 'Styled Components'],
-      github: 'https://github.com/yourusername/todo-app'
+    
     },
     {
       title: 'Weather App',
       description: 'Hava durumu API\'ı kullanarak geliştirilen, anlık ve 5 günlük hava durumu tahminlerini gösteren web uygulaması.',
       techStack: ['JavaScript', 'API Integration', 'CSS3'],
-      github: 'https://github.com/yourusername/weather-app'
+  
     }
   ];
 
