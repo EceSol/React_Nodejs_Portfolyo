@@ -10,7 +10,6 @@ import styled from 'styled-components';
 
 const LayoutWrapper = styled.div`
   min-height: 100vh;
-  display: flex;
   background: linear-gradient(
     to bottom,
     #000000 0%,
@@ -20,62 +19,62 @@ const LayoutWrapper = styled.div`
   color: white;
 `;
 
+const TopNav = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(
+    to right,
+    #000000 0%,
+    #1a237e 70%,
+    #0d47a1 100%
+  );
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+`;
+
 const Sidebar = styled.div`
   width: 300px;
   padding: 2rem;
   position: fixed;
-  height: 100vh;
+  height: calc(100vh - 60px);
+  top: 60px;
   display: flex;
   flex-direction: column;
 `;
 
-const MainContent = styled.main`
-  flex: 1;
+const MainContent = styled.div`
   margin-left: 300px;
   padding: 2rem;
-`;
-
-const TopNav = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: calc(100% - 300px);
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-`;
-
-const ContentWrapper = styled.div`
-  margin-top: 80px;
+  padding-top: calc(60px + 2rem);
 `;
 
 const Layout = () => {
   return (
     <LayoutWrapper>
+      <TopNav>
+        <Navigation />
+      </TopNav>
       <Sidebar>
         <Avatar />
       </Sidebar>
       <MainContent>
-        <TopNav>
-          <Navigation />
-        </TopNav>
-        <ContentWrapper>
-          <section id="home">
-            <Home />
-          </section>
-          <section id="about">
-            <About />
-          </section>
-          <section id="projects">
-            <Projects />
-          </section>
-          <section id="experience">
-            <Experience />
-          </section>
-          <section id="contact">
-            <Contact />
-          </section>
-        </ContentWrapper>
+        <section id="home">
+          <Home />
+        </section>
+        <section id="about">
+          <About />
+        </section>
+        <section id="projects">
+          <Projects />
+        </section>
+        <section id="experience">
+          <Experience />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
       </MainContent>
     </LayoutWrapper>
   );

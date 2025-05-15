@@ -3,26 +3,41 @@ import styled from 'styled-components';
 
 const Nav = styled.nav`
   display: flex;
-  justify-content: center;
-  padding: 1rem;
+  align-items: center;
+  height: 60px;
+  padding: 0 2rem;
+`;
+
+const Logo = styled.div`
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4fc3f7;
+  margin-right: 3rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #81d4fa;
+  }
+`;
+
+const NavItems = styled.div`
+  display: flex;
+  gap: 1rem;
+  flex: 1;
 `;
 
 const NavItem = styled.a`
   color: white;
   text-decoration: none;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   transition: all 0.3s ease;
-  margin: 0 0.5rem;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 1rem;
 
   &:hover {
-    background: rgba(79, 195, 247, 0.2);
-    color: #4fc3f7;
-  }
-
-  &.active {
-    background: rgba(79, 195, 247, 0.3);
+    background: rgba(79, 195, 247, 0.1);
     color: #4fc3f7;
   }
 `;
@@ -40,11 +55,13 @@ const Navigation = () => {
 
   return (
     <Nav>
-      <NavItem onClick={() => scrollToSection('home')}>Ana Sayfa</NavItem>
-      <NavItem onClick={() => scrollToSection('about')}>Ben Kimim?</NavItem>
-      <NavItem onClick={() => scrollToSection('projects')}>Projeler</NavItem>
-      <NavItem onClick={() => scrollToSection('experience')}>Deneyim</NavItem>
-      <NavItem onClick={() => scrollToSection('contact')}>İletişim</NavItem>
+      <Logo onClick={() => scrollToSection('home')}>ES</Logo>
+      <NavItems>
+        <NavItem onClick={() => scrollToSection('about')}>Ben Kimim?</NavItem>
+        <NavItem onClick={() => scrollToSection('projects')}>Projeler</NavItem>
+        <NavItem onClick={() => scrollToSection('experience')}>Deneyim</NavItem>
+        <NavItem onClick={() => scrollToSection('contact')}>İletişim</NavItem>
+      </NavItems>
     </Nav>
   );
 };
