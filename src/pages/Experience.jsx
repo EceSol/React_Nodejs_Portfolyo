@@ -216,7 +216,7 @@ const experiencesData = [
     order: 2
   },
   {
-    title: 'MISYA - SI-RA Roket Takımı',
+    title: 'MİSYA - ŞİRA Roket Takımı',
     subtitle: 'Sosyal Medya Sorumlusu',
     date: '2023 - 2024',
     description: 'MiSYA öğrenci topluluğu ve Şİ-RA Yüksek İrtifa Roket Takımında sosyal medya içerik yönetimi ve proje yönetimi.',
