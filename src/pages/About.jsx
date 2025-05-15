@@ -157,36 +157,24 @@ const SkillsContainer = styled.div`
 const SkillCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem;
   text-align: center;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   cursor: pointer;
 
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      225deg,
-      rgba(129, 212, 250, 0.1) 0%,
-      rgba(25, 118, 210, 0.1) 100%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  svg {
+    font-size: 3.5rem;
+    color: #b3e5fc;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
   }
 
   &:hover {
     transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
     
-    &:before {
-      opacity: 1;
-    }
-
     svg {
       transform: scale(1.1) rotate(5deg);
       color: #81d4fa;
@@ -194,23 +182,39 @@ const SkillCard = styled(motion.div)`
   }
 
   @media (max-width: 768px) {
-    padding: 1.5rem 1rem;
+    padding: 1.2rem;
+    
+    svg {
+      font-size: 3rem;
+    }
   }
 
   @media (max-width: 480px) {
     padding: 1rem;
     border-radius: 12px;
+
+    svg {
+      font-size: 2.8rem;
+    }
   }
 `;
 
 const SkillName = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #fff;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
+  transition: color 0.3s ease;
+
+  ${SkillCard}:hover & {
+    color: #81d4fa;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 
   @media (max-width: 480px) {
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
   }
 `;
 
@@ -256,32 +260,27 @@ const About = () => {
     {
       name: 'Python',
       icon: <DiPython />,
-      level: 85,
-      description: 'Web scraping, veri analizi'
+      level: 85
     },
     {
       name: 'Java',
       icon: <DiJava />,
-      level: 75,
-      description: 'Temel programlama, OOP'
+      level: 75
     },
     {
       name: 'Flutter',
       icon: <SiFlutter />,
-      level: 70,
-      description: 'Mobil uygulama geliştirme'
+      level: 70
     },
     {
       name: 'C#',
       icon: <SiCsharp />,
-      level: 60,
-      description: 'Masaüstü uygulamalar'
+      level: 60
     },
     {
       name: 'React',
       icon: <DiReact />,
-      level: 70,
-      description: 'Web frontend geliştirme'
+      level: 70
     }
   ];
 
@@ -355,12 +354,9 @@ const About = () => {
                 duration: 0.3,
                 delay: index * 0.1
               }}
-              progress={skill.level}
             >
               {skill.icon}
               <SkillName>{skill.name}</SkillName>
-              <SkillDescription>{skill.description}</SkillDescription>
-              <SkillLevel progress={skill.level} />
             </SkillCard>
           ))}
         </SkillsContainer>
