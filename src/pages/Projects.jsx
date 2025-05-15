@@ -60,13 +60,6 @@ const Tech = styled.span`
   font-size: 0.9rem;
 `;
 
-const DateRange = styled.span`
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
-  display: block;
-  margin-bottom: 1rem;
-`;
-
 const Links = styled.div`
   display: flex;
   gap: 1rem;
@@ -113,21 +106,18 @@ const Projects = () => {
       title: 'Yemek Tarif Asistanı',
       description: 'Fromscrape ve Backend kullanarak geliştirilen, elinizde olan malzemelere göre yemek tarifi sunan akıllı bir asistan. Kullanıcıların yemek türü, mutfak tercihi ve alerjen bilgilerini dikkate alarak kişiselleştirilmiş tarifler sunar.',
       techStack: ['Python', 'Web Scraping', 'Backend'],
-      date: '2024-2025',
       github: 'https://github.com/yourusername/yemek-tarif-asistani'
     },
     {
       title: 'Şifre Yönetim Uygulaması',
       description: 'PyQt5 kullanarak geliştirilen, kullanıcıların tüm platform şifrelerini güvenli bir şekilde saklayıp yönetebilecekleri bir masaüstü uygulaması. Şifreleme algoritmaları ve güvenli depolama özellikleri içerir.',
       techStack: ['Python', 'PyQt5', 'Cryptography'],
-      date: '2025-Devam Ediyor',
       github: 'https://github.com/yourusername/sifre-yonetimi'
     },
     {
       title: 'Snake Game',
       description: 'Klasik yılan oyununun modern bir yorumu. Özel efektler, skor sistemi ve farklı zorluk seviyeleri içeren, JavaScript kullanılarak geliştirilmiş bir web oyunu.',
       techStack: ['JavaScript', 'HTML5', 'CSS3'],
-      date: '2024',
       github: 'https://github.com/yourusername/snake-game',
       demo: 'https://yourusername.github.io/snake-game'
     }
@@ -138,34 +128,29 @@ const Projects = () => {
       title: 'Topluluk Yönetim Uygulaması',
       description: 'Flutter ve PHP kullanarak geliştirilen, topluluk etkinliklerini ve üye yönetimini kolaylaştıran mobil uygulama. SKS süreçlerini optimize eder ve dijitalleştirir.',
       techStack: ['Flutter', 'PHP', 'Mobile Development'],
-      date: '2024-Devam Ediyor',
       github: 'https://github.com/yourusername/topluluk-yonetim'
     },
     {
       title: 'Kamp Oyunu',
       description: 'Unity ve C# kullanarak geliştirilen, Türkiye\'deki kamp alanlarını tanıtan interaktif bir oyun. Performans optimizasyonu ve oyun mekaniği geliştirmeleri içerir.',
       techStack: ['Unity', 'C#', 'Game Development'],
-      date: '2023-2024',
       github: 'https://github.com/yourusername/kamp-oyunu'
     },
     {
       title: 'Roket Projesi',
       description: 'SI-RA Yüksek İrfa Roket Takımı için geliştirilen proje yönetim ve sosyal medya içerik planlaması sistemi.',
-      techStack: ['Project Management', 'Social Media'],
-      date: '2023-2024'
+      techStack: ['Project Management', 'Social Media']
     },
     {
       title: 'To-Do List Uygulaması',
       description: 'React ve TypeScript kullanılarak geliştirilen, görev yönetimi ve organizasyon uygulaması.',
       techStack: ['React', 'TypeScript', 'Styled Components'],
-      date: '2024',
       github: 'https://github.com/yourusername/todo-app'
     },
     {
       title: 'Weather App',
       description: 'Hava durumu API\'ı kullanarak geliştirilen, anlık ve 5 günlük hava durumu tahminlerini gösteren web uygulaması.',
       techStack: ['JavaScript', 'API Integration', 'CSS3'],
-      date: '2024',
       github: 'https://github.com/yourusername/weather-app'
     }
   ];
@@ -206,7 +191,6 @@ const Projects = () => {
         {displayedProjects.map((project, index) => (
           <ProjectCard key={index}>
             <ProjectTitle>{project.title}</ProjectTitle>
-            <DateRange>{project.date}</DateRange>
             <ProjectDescription>{project.description}</ProjectDescription>
             <TechStack>
               {project.techStack.map((tech, techIndex) => (
