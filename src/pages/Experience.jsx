@@ -1,60 +1,129 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FaGraduationCap, FaLaptopCode, FaRocket, FaBrain } from 'react-icons/fa';
 
 const ExperienceContainer = styled.div`
-  padding: 2rem 0;
+  padding: 2rem;
+  max-width: 1000px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const Title = styled.h2`
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   color: #4fc3f7;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const Timeline = styled.div`
   position: relative;
   max-width: 800px;
+  margin: 0 auto;
 
   &::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 2px;
     height: 100%;
-    background: rgba(79, 195, 247, 0.3);
+    background: linear-gradient(to bottom, 
+      rgba(79, 195, 247, 0.2),
+      rgba(79, 195, 247, 0.6),
+      rgba(79, 195, 247, 0.2)
+    );
+
+    @media (max-width: 768px) {
+      left: 30px;
+    }
   }
 `;
 
 const TimelineItem = styled.div`
-  margin-left: 2rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 50%;
   position: relative;
+  margin-bottom: 4rem;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: -2.5rem;
-    top: 1.5rem;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: #4fc3f7;
-    border: 2px solid #000;
+  &:nth-child(even) {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: 50%;
+  }
+
+  @media (max-width: 768px) {
+    padding-right: 0;
+    padding-left: 60px;
+    margin-bottom: 3rem;
+
+    &:nth-child(even) {
+      padding-left: 60px;
+    }
   }
 `;
 
-const ItemTitle = styled.h3`
-  font-size: 1.5rem;
+const TimelineContent = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: calc(100% - 50px);
+  position: relative;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(79, 195, 247, 0.1);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const TimelineDot = styled.div`
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #4fc3f7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  left: calc(50% - 20px);
+  top: 20px;
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.3);
+  z-index: 2;
+
+  svg {
+    font-size: 1.2em;
+  }
+
+  @media (max-width: 768px) {
+    left: 10px;
+  }
+`;
+
+const ItemTitle = styled.h4`
+  font-size: 1.2rem;
   color: #4fc3f7;
   margin-bottom: 0.5rem;
 `;
 
-const ItemSubtitle = styled.h4`
-  font-size: 1.1rem;
+const ItemSubtitle = styled.h5`
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 0.5rem;
 `;
@@ -62,53 +131,108 @@ const ItemSubtitle = styled.h4`
 const ItemDate = styled.span`
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 1rem;
   display: block;
+  margin-bottom: 1rem;
 `;
 
 const ItemDescription = styled.p`
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
+  font-size: 0.95rem;
 `;
 
+const TypeBadge = styled.span`
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: ${props => props.type === 'education' ? '#4fc3f7' : '#81d4fa'};
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+`;
+
+// Define experiences data outside the component
+const experiencesData = [
+  {
+    title: 'Eskişehir Beylikova Fen Lisesi',
+    subtitle: 'Lise Eğitimi',
+    date: '2018 - 2022',
+    description: '',
+    icon: <FaGraduationCap />,
+    type: 'education',
+    order: 0
+  },
+  {
+    title: 'Balıkesir Üniversitesi',
+    subtitle: 'Bilgisayar Mühendisliği',
+    date: '2023 - Devam ediyor',
+    description: 'GPA: 3.08',
+    icon: <FaGraduationCap />,
+    type: 'education',
+    order: 1
+  },
+  {
+    title: 'BAUN Yapay Zeka Takımı',
+    subtitle: 'Aktif Üye',
+    date: '2023 - 2024',
+    description: 'Yapay zeka projeleri geliştirme ve araştırma çalışmaları.',
+    icon: <FaBrain />,
+    type: 'experience',
+    order: 2
+  },
+  {
+    title: 'MISYA - SI-RA Roket Takımı',
+    subtitle: 'Sosyal Medya Sorumlusu',
+    date: '2023 - 2024',
+    description: 'MiSYA öğrenci topluluğu ve Şİ-RA Yüksek İrtifa Roket Takımında sosyal medya içerik yönetimi ve proje yönetimi.',
+    icon: <FaRocket />,
+    type: 'experience',
+    order: 3
+  },
+  {
+    title: 'IEEE Computer Society',
+    subtitle: 'Başkan',
+    date: '2023 - 2025',
+    description: 'Topluluk başkanı ve teknik ekip üyesi olarak görev aldım.',
+    icon: <FaLaptopCode />,
+    type: 'experience',
+    order: 4
+  }
+];
+
 const Experience = () => {
-  const experiences = [
-    {
-      title: 'Eğitim',
-      subtitle: 'Balıkesir Üniversitesi - Bilgisayar Mühendisliği',
-      date: '2023 - Devam ediyor',
-      description: 'GPA: 3.1'
-    },
-    {
-      title: 'Lise Eğitimi',
-      subtitle: 'Eskişehir Beylikova Fen Lisesi',
-      date: '2018-2022',
-      description: ''
-    },
-    {
-      title: 'Topluluk Üyelikleri',
-      subtitle: 'Computer Society & MISYA & SI-RA',
-      date: '2023-2024',
-      description: 'Computer Society Başkanı ve Teknik Ekip Üyesi olarak görev alıyorum. MISYA öğrenci topluluğunda aktif üyeyim. SI-RA Yüksek İrfa Roket Takımı Sosyal Medya Sorumlusu olarak çalışıyorum.'
-    },
-    {
-      title: 'Diğer Üyelikler',
-      subtitle: 'BAUN Yapay Zeka Takımı & AFAD',
-      date: '2023-2024',
-      description: 'BAUN Yapay Zeka Takımı ve AFAD üyesiyim.'
+  const sortedExperiences = [...experiencesData].sort((a, b) => {
+    const aYear = parseInt(a.date.split(' - ')[0]);
+    const bYear = parseInt(b.date.split(' - ')[0]);
+    if (aYear === bYear) {
+      // If same year, sort by type (education first)
+      if (a.type === 'education' && b.type !== 'education') return -1;
+      if (a.type !== 'education' && b.type === 'education') return 1;
+      // For experiences in the same year, use predefined order
+      return a.order - b.order;
     }
-  ];
+    return aYear - bYear;
+  });
 
   return (
     <ExperienceContainer>
       <Title>Deneyim & Eğitim</Title>
       <Timeline>
-        {experiences.map((exp, index) => (
+        {sortedExperiences.map((item, index) => (
           <TimelineItem key={index}>
-            <ItemTitle>{exp.title}</ItemTitle>
-            <ItemSubtitle>{exp.subtitle}</ItemSubtitle>
-            <ItemDate>{exp.date}</ItemDate>
-            <ItemDescription>{exp.description}</ItemDescription>
+            <TimelineDot>{item.icon}</TimelineDot>
+            <TimelineContent>
+              <TypeBadge type={item.type}>
+                {item.type === 'education' ? 'Eğitim' : 'Deneyim'}
+              </TypeBadge>
+              <ItemTitle>{item.title}</ItemTitle>
+              <ItemSubtitle>{item.subtitle}</ItemSubtitle>
+              <ItemDate>{item.date}</ItemDate>
+              <ItemDescription>{item.description}</ItemDescription>
+            </TimelineContent>
           </TimelineItem>
         ))}
       </Timeline>
