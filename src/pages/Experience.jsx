@@ -189,21 +189,21 @@ const TypeBadge = styled.span`
 // Define experiences data outside the component
 const experiencesData = [
   {
-    title: 'Eskişehir Beylikova Fen Lisesi',
-    subtitle: 'Lise Eğitimi',
-    date: '2018 - 2022',
-    description: '',
-    icon: <FaGraduationCap />,
-    type: 'education',
+    title: 'IEEE Computer Society',
+    subtitle: 'Başkan',
+    date: '2023 - 2025',
+    description: 'Topluluk başkanı ve teknik ekip üyesi olarak görev aldım.',
+    icon: <FaLaptopCode />,
+    type: 'experience',
     order: 0
   },
   {
-    title: 'Balıkesir Üniversitesi',
-    subtitle: 'Bilgisayar Mühendisliği',
-    date: '2023 - Devam ediyor',
-    description: 'GPA: 3.08',
-    icon: <FaGraduationCap />,
-    type: 'education',
+    title: 'MİSYA - ŞİRA Roket Takımı',
+    subtitle: 'Sosyal Medya Sorumlusu',
+    date: '2023 - 2024',
+    description: 'MiSYA öğrenci topluluğu ve Şİ-RA Yüksek İrtifa Roket Takımında sosyal medya içerik yönetimi ve proje yönetimi.',
+    icon: <FaRocket />,
+    type: 'experience',
     order: 1
   },
   {
@@ -216,40 +216,31 @@ const experiencesData = [
     order: 2
   },
   {
-    title: 'MİSYA - ŞİRA Roket Takımı',
-    subtitle: 'Sosyal Medya Sorumlusu',
-    date: '2023 - 2024',
-    description: 'MiSYA öğrenci topluluğu ve Şİ-RA Yüksek İrtifa Roket Takımında sosyal medya içerik yönetimi ve proje yönetimi.',
-    icon: <FaRocket />,
-    type: 'experience',
+    title: 'Balıkesir Üniversitesi',
+    subtitle: 'Bilgisayar Mühendisliği',
+    date: '2023 - Devam ediyor',
+    description: 'GPA: 3.08',
+    icon: <FaGraduationCap />,
+    type: 'education',
     order: 3
   },
   {
-    title: 'IEEE Computer Society',
-    subtitle: 'Başkan',
-    date: '2023 - 2025',
-    description: 'Topluluk başkanı ve teknik ekip üyesi olarak görev aldım.',
-    icon: <FaLaptopCode />,
-    type: 'experience',
+    title: 'Eskişehir Beylikova Fen Lisesi',
+    subtitle: 'Lise Eğitimi',
+    date: '2018 - 2022',
+    description: '',
+    icon: <FaGraduationCap />,
+    type: 'education',
     order: 4
   }
 ];
 
 const Experience = () => {
-  const sortedExperiences = [...experiencesData].sort((a, b) => {
-    const aYear = parseInt(a.date.split(' - ')[0]);
-    const bYear = parseInt(b.date.split(' - ')[0]);
-    if (aYear === bYear) {
-      // If same year, sort by type (education first)
-      if (a.type === 'education' && b.type !== 'education') return -1;
-      if (a.type !== 'education' && b.type === 'education') return 1;
-      // For experiences in the same year, use predefined order
-      return a.order - b.order;
-    }
-    return aYear - bYear;
-  });
+  const sortedExperiences = [...experiencesData].sort((a, b) => a.order - b.order);
 
   const totalItems = sortedExperiences.length;
+
+
 
   return (
     <ExperienceContainer>

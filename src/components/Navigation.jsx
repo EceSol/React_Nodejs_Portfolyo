@@ -141,6 +141,7 @@ const Navigation = () => {
       </MenuButton>
       <NavItems isOpen={isMenuOpen}>
         <NavItem onClick={() => scrollToSection('about')}>Ben Kimim?</NavItem>
+        <NavItem onClick={() => scrollToSection('skills')}>Yeteneklerim</NavItem>
         <NavItem onClick={() => scrollToSection('projects')}>Projeler</NavItem>
         <NavItem onClick={() => scrollToSection('experience')}>Deneyim</NavItem>
         <NavItem onClick={() => scrollToSection('contact')}>İletişim</NavItem>

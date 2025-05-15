@@ -224,14 +224,14 @@ const About = () => {
         <AboutGrid>
           <AboutCard>
             <CardTitle>
-              <FaUserGraduate />
-              Eğitim
+              <FaLaptopCode />
+              Geliştirme
             </CardTitle>
             <CardText>
-              Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum.
+              Yazılım geliştirme ve teknolojiye olan tutkumla, modern ve kullanıcı dostu uygulamalar geliştiriyorum.
             </CardText>
           </AboutCard>
-          
+
           <AboutCard>
             <CardTitle>
               <FaCode />
@@ -244,17 +244,17 @@ const About = () => {
 
           <AboutCard>
             <CardTitle>
-              <FaLaptopCode />
-              Geliştirme
+              <FaUserGraduate />
+              Eğitim
             </CardTitle>
             <CardText>
-              Yazılım geliştirme ve teknolojiye olan tutkumla, modern ve kullanıcı dostu uygulamalar geliştiriyorum.
+              Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum.
             </CardText>
           </AboutCard>
         </AboutGrid>
       </Section>
 
-      <Section>
+      <Section id="skills">
         <Title>Yeteneklerim</Title>
         <AnimatedSkills />
         <SkillsContainer>
