@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { DiPython, DiJava, DiReact } from 'react-icons/di';
+import { SiFlutter, SiCsharp } from 'react-icons/si';
 
 const AboutContainer = styled.div`
   padding: 2rem 0;
@@ -12,7 +14,8 @@ const Section = styled.section`
 const Title = styled.h2`
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: #4fc3f7;
+  color: #81d4fa;
+  text-align: center;
 `;
 
 const Text = styled.p`
@@ -22,32 +25,112 @@ const Text = styled.p`
   margin-bottom: 1rem;
 `;
 
-const SkillsGrid = styled.div`
+const SkillsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1rem;
+  }
 `;
 
-const Skill = styled.div`
-  background: rgba(79, 195, 247, 0.1);
-  padding: 1rem;
-  border-radius: 8px;
+const SkillCard = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
   text-align: center;
-  color: #4fc3f7;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      225deg,
+      rgba(129, 212, 250, 0.1) 0%,
+      rgba(25, 118, 210, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
-    transform: translateY(-2px);
-    background: rgba(79, 195, 247, 0.2);
+    transform: translateY(-5px);
+    
+    &:before {
+      opacity: 1;
+    }
+
+    svg {
+      transform: scale(1.1) rotate(5deg);
+      color: #81d4fa;
+    }
+
+    ${props => props.progress && `
+      &:after {
+        width: ${props.progress}%;
+      }
+    `}
   }
+
+  svg {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #b3e5fc;
+    transition: all 0.3s ease;
+  }
+`;
+
+const SkillName = styled.h3`
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+`;
+
+const SkillLevel = styled.div`
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(to right, #81d4fa, #b3e5fc);
+    transition: width 0.8s ease;
+  }
+`;
+
+const SkillDescription = styled.p`
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
 `;
 
 const ContactInfo = styled.div`
   margin-top: 2rem;
   
   a {
-    color: #4fc3f7;
+    color: #81d4fa;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -57,16 +140,36 @@ const ContactInfo = styled.div`
 
 const About = () => {
   const skills = [
-    'C# Temel',
-    'Java Temel',
-    'Python',
-    'Flutter',
-    'PHP',
-    'Proje Yönetimi',
-    'Analitik Düşünme',
-    'Problem Çözme',
-    'Takım Çalışması',
-    'İletişim'
+    {
+      name: 'Python',
+      icon: <DiPython />,
+      level: 85,
+      description: 'Web scraping, veri analizi'
+    },
+    {
+      name: 'Java',
+      icon: <DiJava />,
+      level: 75,
+      description: 'Temel programlama, OOP'
+    },
+    {
+      name: 'Flutter',
+      icon: <SiFlutter />,
+      level: 70,
+      description: 'Mobil uygulama geliştirme'
+    },
+    {
+      name: 'C#',
+      icon: <SiCsharp />,
+      level: 60,
+      description: 'Masaüstü uygulamalar'
+    },
+    {
+      name: 'React',
+      icon: <DiReact />,
+      level: 70,
+      description: 'Web frontend geliştirme'
+    }
   ];
 
   return (
@@ -78,28 +181,28 @@ const About = () => {
           birlikte öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Algoritmalar ve programlama konusunda
           güçlü bir temele sahibim. C#, Java, Flutter ve Python dillerinde deneyimim var.
         </Text>
-        <Text>
-          Proje yönetimi ve takım çalışmasında tecrübeli, teknolojiye meraklı ve kendini sürekli geliştiren biriyim.
-          Yazılım dünyasında kendimi geliştirerek mühendislik kariyerime sağlam adımlarla başlamak hedefim.
-        </Text>
         <ContactInfo>
           <Text>
-            E-mail: <a href="mailto:cengeceesol@gmail.com">cengeceesol@gmail.com</a>
+            E-mail: <a href="mailto:ecegeceesol@gmail.com">ecegeceesol@gmail.com</a>
+          </Text>
+          <Text>
+            Telefon: 05316063053
           </Text>
         </ContactInfo>
       </Section>
 
       <Section>
         <Title>Yeteneklerim</Title>
-        <Text>
-          Teknoloji dünyasının sürekli değişen yapısına ayak uydurmak için
-          kendimi sürekli geliştiriyorum. İşte bazı teknik yeteneklerim:
-        </Text>
-        <SkillsGrid>
+        <SkillsContainer>
           {skills.map((skill, index) => (
-            <Skill key={index}>{skill}</Skill>
+            <SkillCard key={index} progress={skill.level}>
+              {skill.icon}
+              <SkillName>{skill.name}</SkillName>
+              <SkillDescription>{skill.description}</SkillDescription>
+              <SkillLevel />
+            </SkillCard>
           ))}
-        </SkillsGrid>
+        </SkillsContainer>
       </Section>
     </AboutContainer>
   );
