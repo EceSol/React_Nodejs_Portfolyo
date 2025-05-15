@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HomeContainer = styled.div`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+  max-width: 800px;
+  width: 100%;
 `;
 
 const Title = styled.h1`

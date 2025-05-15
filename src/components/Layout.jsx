@@ -39,7 +39,7 @@ const Sidebar = styled.div`
   padding: 2rem;
   position: fixed;
   height: calc(100vh - 60px);
-  top: 60px;
+  top: 120px;
   display: flex;
   flex-direction: column;
 `;
@@ -48,6 +48,13 @@ const MainContent = styled.div`
   margin-left: 300px;
   padding: 2rem;
   padding-top: calc(60px + 2rem);
+
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Layout = () => {
