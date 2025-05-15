@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from './Avatar';
 import Navigation from './Navigation';
 import Home from '../pages/Home';
@@ -17,6 +17,7 @@ const LayoutWrapper = styled.div`
     #4fc3f7 100%
   );
   color: white;
+  overflow-x: hidden;
 `;
 
 const TopNav = styled.div`
@@ -35,27 +36,58 @@ const TopNav = styled.div`
 `;
 
 const Sidebar = styled.div`
-  width: 300px;
   padding: 2rem;
-  position: fixed;
-  height: calc(100vh - 60px);
-  top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  @media (min-width: 1024px) {
+    width: 300px;
+    position: fixed;
+    height: calc(100vh - 60px);
+    top: 60px;
+  }
+
+  @media (max-width: 1023px) {
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    margin-top: 60px;
+  }
 `;
 
 const MainContent = styled.div`
-  margin-left: 300px;
   padding: 2rem;
   padding-top: calc(60px + 2rem);
+
+  @media (min-width: 1024px) {
+    margin-left: 300px;
+  }
+
+  @media (max-width: 1023px) {
+    margin-left: 0;
+    padding: 1rem;
+    padding-top: 0;
+  }
 
   section {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem 1rem;
+
+    @media (max-width: 768px) {
+      padding: 1rem 0.5rem;
+    }
+  }
+`;
+
+const ContentWrapper = styled.div`
+  @media (max-width: 1023px) {
+    display: flex;
+    flex-direction: column;
   }
 `;
 
@@ -65,26 +97,28 @@ const Layout = () => {
       <TopNav>
         <Navigation />
       </TopNav>
-      <Sidebar>
-        <Avatar />
-      </Sidebar>
-      <MainContent>
-        <section id="home">
-          <Home />
-        </section>
-        <section id="about">
-          <About />
-        </section>
-        <section id="projects">
-          <Projects />
-        </section>
-        <section id="experience">
-          <Experience />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
-      </MainContent>
+      <ContentWrapper>
+        <Sidebar>
+          <Avatar />
+        </Sidebar>
+        <MainContent>
+          <section id="home">
+            <Home />
+          </section>
+          <section id="about">
+            <About />
+          </section>
+          <section id="projects">
+            <Projects />
+          </section>
+          <section id="experience">
+            <Experience />
+          </section>
+          <section id="contact">
+            <Contact />
+          </section>
+        </MainContent>
+      </ContentWrapper>
     </LayoutWrapper>
   );
 };
