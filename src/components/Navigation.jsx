@@ -55,7 +55,7 @@ const NavItems = styled.div`
   padding-right: 2rem;
 
   @media (max-width: 768px) {
-    display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+    display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
     flex-direction: column;
     position: fixed;
     top: 60px;
@@ -184,7 +184,7 @@ const Navigation = () => {
       <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
         {isMenuOpen ? '✕' : '☰'}
       </MenuButton>
-      <NavItems isOpen={isMenuOpen}>
+      <NavItems $isOpen={isMenuOpen}>
         <NavItem onClick={() => scrollToSection('about')}>Ben Kimim?</NavItem>
         <NavItem onClick={() => scrollToSection('skills')}>Yeteneklerim</NavItem>
         <NavItem onClick={() => scrollToSection('projects')}>Projeler</NavItem>
