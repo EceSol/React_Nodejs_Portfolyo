@@ -45,7 +45,12 @@ const NavItems = styled.div`
     top: 60px;
     left: 0;
     right: 0;
-    background: linear-gradient(to bottom, #000000, #1a237e);
+    background: linear-gradient(to bottom, 
+      #000000 0%,
+      #0d47a1 40%,
+      #1565c0 70%,
+      #1976d2 100%
+    );
     padding: 1rem;
     gap: 1rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -61,16 +66,41 @@ const NavItem = styled.a`
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      #81d4fa 0%,
+      #b3e5fc 100%
+    );
+    transition: width 0.3s ease;
+  }
 
   &:hover {
-    background: rgba(129, 212, 250, 0.15);
-    color: #81d4fa;
+    background: rgba(129, 212, 250, 0.1);
+    color: #b3e5fc;
+
+    &:before {
+      width: 100%;
+    }
   }
 
   @media (max-width: 768px) {
     width: 100%;
     text-align: center;
     padding: 1rem;
+    
+    &:hover {
+      background: rgba(129, 212, 250, 0.15);
+    }
   }
 `;
 
@@ -119,4 +149,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation; 
+export default Navigation;

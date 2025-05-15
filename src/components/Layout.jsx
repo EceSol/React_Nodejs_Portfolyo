@@ -13,8 +13,9 @@ const LayoutWrapper = styled.div`
   background: linear-gradient(
     to bottom,
     #000000 0%,
-    #1a237e 50%,
-    #0d47a1 100%
+    #0d47a1 40%,
+    #1565c0 70%,
+    #1976d2 100%
   );
   color: white;
   overflow-x: hidden;
@@ -29,8 +30,9 @@ const TopNav = styled.div`
   background: linear-gradient(
     to right,
     #000000 0%,
-    #1a237e 70%,
-    #0d47a1 100%
+    #0d47a1 40%,
+    #1565c0 70%,
+    #1976d2 100%
   );
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 `;
