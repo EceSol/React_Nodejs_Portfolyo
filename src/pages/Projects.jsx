@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
@@ -23,6 +23,8 @@ const ProjectCard = styled.div`
   border-radius: 12px;
   padding: 1.5rem;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
     transform: translateY(-5px);
@@ -64,45 +66,122 @@ const DateRange = styled.span`
   margin-bottom: 1rem;
 `;
 
+const Links = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const LinkButton = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4fc3f7;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #81d4fa;
+  }
+`;
+
+const ToggleButton = styled.button`
+  background: rgba(79, 195, 247, 0.1);
+  color: #4fc3f7;
+  border: 1px solid #4fc3f7;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 3rem auto;
+  display: block;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(79, 195, 247, 0.2);
+    transform: translateY(-2px);
+  }
+`;
+
 const Projects = () => {
-  const projects = [
+  const [showAllProjects, setShowAllProjects] = useState(false);
+
+  const featuredProjects = [
     {
       title: 'Yemek Tarif Asistanı',
-      description: 'Fromscrape ve Backend. Proje: Python dilini web kazıma amacıyla bu projede eliçizdeki malzemeleri girdiğiniz size yemek tarifi sunması. İsterseniz yemek türünü, mutfak türünü, alerjen olduğunuz bilgilerinizi girdiğinizde tarif sunan bir bot.',
+      description: 'Fromscrape ve Backend kullanarak geliştirilen, elinizde olan malzemelere göre yemek tarifi sunan akıllı bir asistan. Kullanıcıların yemek türü, mutfak tercihi ve alerjen bilgilerini dikkate alarak kişiselleştirilmiş tarifler sunar.',
       techStack: ['Python', 'Web Scraping', 'Backend'],
-      date: '2024-2025'
+      date: '2024-2025',
+      github: 'https://github.com/yourusername/yemek-tarif-asistani'
     },
     {
       title: 'Şifre Yönetim Uygulaması',
-      description: 'İlk başıma yazdığım bu projede Python dilini ve açıklık olarak PyQt5 kütüphanesini kullandım. Projenin amacı günümüz problemlerinden biri olan şifre unutmanın önüne geçmekti. Kullandığımız bütün platformların şifresini tek platformda birleştiren bir uygulama.',
-      techStack: ['Python', 'PyQt5'],
-      date: '2025-Devam Ediyor'
+      description: 'PyQt5 kullanarak geliştirilen, kullanıcıların tüm platform şifrelerini güvenli bir şekilde saklayıp yönetebilecekleri bir masaüstü uygulaması. Şifreleme algoritmaları ve güvenli depolama özellikleri içerir.',
+      techStack: ['Python', 'PyQt5', 'Cryptography'],
+      date: '2025-Devam Ediyor',
+      github: 'https://github.com/yourusername/sifre-yonetimi'
     },
     {
+      title: 'Snake Game',
+      description: 'Klasik yılan oyununun modern bir yorumu. Özel efektler, skor sistemi ve farklı zorluk seviyeleri içeren, JavaScript kullanılarak geliştirilmiş bir web oyunu.',
+      techStack: ['JavaScript', 'HTML5', 'CSS3'],
+      date: '2024',
+      github: 'https://github.com/yourusername/snake-game',
+      demo: 'https://yourusername.github.io/snake-game'
+    }
+  ];
+
+  const additionalProjects = [
+    {
       title: 'Topluluk Yönetim Uygulaması',
-      description: 'Takım kaptanıyım ve aynı zamanda Flutter geliştirme ekibindeyim. Proje: Flutter ve PHP kullanarak topluluklara SKS üzerinden yapıştıran işlemleri mobil uygulama ve web tabanlı bir sisteme geçirip bütün süreçleri optimize ve daha hızlı hale getirmek amacıyla bir projedir.',
+      description: 'Flutter ve PHP kullanarak geliştirilen, topluluk etkinliklerini ve üye yönetimini kolaylaştıran mobil uygulama. SKS süreçlerini optimize eder ve dijitalleştirir.',
       techStack: ['Flutter', 'PHP', 'Mobile Development'],
-      date: '2024-Devam Ediyor'
+      date: '2024-Devam Ediyor',
+      github: 'https://github.com/yourusername/topluluk-yonetim'
     },
     {
       title: 'Kamp Oyunu',
-      description: 'Unity kullanarak oyun mekaniklerini C# ile kodladım. Oyunun performans optimizasyonu üzerinde çalıştım ve çeşitli oyun içi özelliklerin geliştirilmesini gerçekleştirdim. Proje: Türkiye\'deki kamp alanlarını oyunlaştırarak tanıtmak ve turizmde yeni bir bakış açısı getirmek.',
+      description: 'Unity ve C# kullanarak geliştirilen, Türkiye\'deki kamp alanlarını tanıtan interaktif bir oyun. Performans optimizasyonu ve oyun mekaniği geliştirmeleri içerir.',
       techStack: ['Unity', 'C#', 'Game Development'],
-      date: '2023-2024'
+      date: '2023-2024',
+      github: 'https://github.com/yourusername/kamp-oyunu'
     },
     {
       title: 'Roket Projesi',
-      description: 'Roket takımında sosyal medya içeriklerini yönetim, projenin zamanlarına uygun medya planlaması yapım ve proje tanıtıcı içerikler oluşturdum.',
-      techStack: ['Social Media Management', 'Project Management'],
+      description: 'SI-RA Yüksek İrfa Roket Takımı için geliştirilen proje yönetim ve sosyal medya içerik planlaması sistemi.',
+      techStack: ['Project Management', 'Social Media'],
       date: '2023-2024'
+    },
+    {
+      title: 'To-Do List Uygulaması',
+      description: 'React ve TypeScript kullanılarak geliştirilen, görev yönetimi ve organizasyon uygulaması.',
+      techStack: ['React', 'TypeScript', 'Styled Components'],
+      date: '2024',
+      github: 'https://github.com/yourusername/todo-app'
+    },
+    {
+      title: 'Weather App',
+      description: 'Hava durumu API\'ı kullanarak geliştirilen, anlık ve 5 günlük hava durumu tahminlerini gösteren web uygulaması.',
+      techStack: ['JavaScript', 'API Integration', 'CSS3'],
+      date: '2024',
+      github: 'https://github.com/yourusername/weather-app'
     }
   ];
+
+  const displayedProjects = showAllProjects 
+    ? [...featuredProjects, ...additionalProjects]
+    : featuredProjects;
+
+  const toggleProjects = () => {
+    setShowAllProjects(!showAllProjects);
+  };
 
   return (
     <ProjectsContainer>
       <Title>Projelerim</Title>
       <ProjectGrid>
-        {projects.map((project, index) => (
+        {displayedProjects.map((project, index) => (
           <ProjectCard key={index}>
             <ProjectTitle>{project.title}</ProjectTitle>
             <DateRange>{project.date}</DateRange>
@@ -112,9 +191,24 @@ const Projects = () => {
                 <Tech key={techIndex}>{tech}</Tech>
               ))}
             </TechStack>
+            <Links>
+              {project.github && (
+                <LinkButton href={project.github} target="_blank" rel="noopener noreferrer">
+                  <FaGithub /> GitHub
+                </LinkButton>
+              )}
+              {project.demo && (
+                <LinkButton href={project.demo} target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt /> Demo
+                </LinkButton>
+              )}
+            </Links>
           </ProjectCard>
         ))}
       </ProjectGrid>
+      <ToggleButton onClick={toggleProjects}>
+        {showAllProjects ? 'Daha Az Göster' : 'Daha Fazla Göster'}
+      </ToggleButton>
     </ProjectsContainer>
   );
 };
