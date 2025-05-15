@@ -2,28 +2,84 @@ import React from 'react';
 import styled from 'styled-components';
 import { DiPython, DiJava, DiReact } from 'react-icons/di';
 import { SiFlutter, SiCsharp } from 'react-icons/si';
+import { FaUserGraduate, FaCode, FaLaptopCode } from 'react-icons/fa';
 import AnimatedSkills from '../components/AnimatedSkills';
 
 const AboutContainer = styled.div`
   padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const Section = styled.section`
   margin-bottom: 3rem;
+  padding: 0 1rem;
 `;
 
 const Title = styled.h2`
   font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   color: #81d4fa;
   text-align: center;
+  position: relative;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #81d4fa, #1976d2);
+    border-radius: 2px;
+  }
 `;
 
-const Text = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+const AboutGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+`;
+
+const AboutCard = styled.div`
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(129, 212, 250, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+`;
+
+const CardTitle = styled.h3`
+  color: #81d4fa;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    font-size: 1.5rem;
+  }
+`;
+
+const CardText = styled.p`
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
 `;
 
 const SkillsContainer = styled.div`
@@ -127,18 +183,6 @@ const SkillDescription = styled.p`
   margin-top: 0.5rem;
 `;
 
-const ContactInfo = styled.div`
-  margin-top: 2rem;
-  
-  a {
-    color: #81d4fa;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
 const About = () => {
   const skills = [
     {
@@ -177,17 +221,37 @@ const About = () => {
     <AboutContainer>
       <Section>
         <Title>Ben Kimim?</Title>
-        <Text>
-          Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Yazılım geliştirme ve teknolojiye olan ilgimle
-          birlikte öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Algoritmalar ve programlama konusunda
-          güçlü bir temele sahibim. C#, Java, Flutter ve Python dillerinde deneyimim var.
-        </Text>
-        <ContactInfo>
-          <Text>
-            E-mail: <a href="mailto:ecegeceesol@gmail.com">ecegeceesol@gmail.com</a>
-          </Text>
-         
-        </ContactInfo>
+        <AboutGrid>
+          <AboutCard>
+            <CardTitle>
+              <FaUserGraduate />
+              Eğitim
+            </CardTitle>
+            <CardText>
+              Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum.
+            </CardText>
+          </AboutCard>
+          
+          <AboutCard>
+            <CardTitle>
+              <FaCode />
+              Uzmanlık
+            </CardTitle>
+            <CardText>
+              Algoritmalar ve programlama konusunda güçlü bir temele sahibim. C#, Java, Flutter ve Python dillerinde deneyimliyim.
+            </CardText>
+          </AboutCard>
+
+          <AboutCard>
+            <CardTitle>
+              <FaLaptopCode />
+              Geliştirme
+            </CardTitle>
+            <CardText>
+              Yazılım geliştirme ve teknolojiye olan tutkumla, modern ve kullanıcı dostu uygulamalar geliştiriyorum.
+            </CardText>
+          </AboutCard>
+        </AboutGrid>
       </Section>
 
       <Section>
