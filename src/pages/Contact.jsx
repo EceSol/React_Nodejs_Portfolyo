@@ -169,7 +169,7 @@ const Contact = () => {
           </Text>
           <SocialLinksContainer>
             <SocialLink
-              href="mailto:your.email@example.com"
+              href="mailto:cengecesol@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ x: 10 }}
@@ -187,7 +187,7 @@ const Contact = () => {
               <FaGithub /> GitHub
             </SocialLink>
             <SocialLink
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/ece-sol-09876829a/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ x: 10 }}
