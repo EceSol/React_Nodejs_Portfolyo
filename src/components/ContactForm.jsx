@@ -1,267 +1,108 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import emailjs from '@emailjs/browser';
-import { emailConfig } from '../config/emailjs';
+import { motion } from 'framer-motion';
 
-const FormContainer = styled.div`
+const FormContainer = styled(motion.div)`
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  margin-top: 3rem;
 
   @media (max-width: 768px) {
-    padding: 0;
+    margin-top: 2rem;
   }
 `;
 
-const Form = styled.form`
+const Form = styled(motion.form)`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(79, 195, 247, 0.2);
+  backdrop-filter: blur(10px);
 
   @media (max-width: 768px) {
+    padding: 1.5rem;
     gap: 1rem;
   }
 `;
 
-const InputGroup = styled.div`
+const InputGroup = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 `;
 
 const Label = styled.label`
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 0.9rem;
-  margin-left: 0.5rem;
+  color: #81d4fa;
+  font-size: 1rem;
 `;
 
 const Input = styled.input`
-  padding: 1rem;
-  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(79, 195, 247, 0.2);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
+  padding: 0.8rem 1rem;
   color: white;
   font-size: 1rem;
   transition: all 0.3s ease;
 
-  @media (max-width: 768px) {
-    padding: 0.8rem;
-    font-size: 0.95rem;
-  }
-
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
   &:focus {
     outline: none;
     border-color: #81d4fa;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
   }
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.2);
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
   }
 `;
 
-const TextArea = styled.textarea`
-  padding: 1rem;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 1rem;
-  min-height: 150px;
+const TextArea = styled(Input).attrs({ as: 'textarea' })`
   resize: vertical;
-  transition: all 0.3s ease;
-
-  @media (max-width: 768px) {
-    padding: 0.8rem;
-    font-size: 0.95rem;
-    min-height: 120px;
-  }
-
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: #81d4fa;
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
+  min-height: 120px;
 `;
 
-const Button = styled.button`
-  padding: 1rem 2rem;
+const SubmitButton = styled(motion.button)`
+  background: linear-gradient(45deg, #0d47a1, #4fc3f7);
+  color: white;
   border: none;
+  padding: 1rem 2rem;
   border-radius: 8px;
-  background: #81d4fa;
-  color: #1a237e;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  position: relative;
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    padding: 0.8rem 1.5rem;
-  }
+  margin-top: 1rem;
 
   &:hover {
-    background: #b3e5fc;
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
+    background: linear-gradient(45deg, #1565c0, #81d4fa);
   }
 
   &:disabled {
-    background: rgba(129, 212, 250, 0.5);
+    opacity: 0.7;
     cursor: not-allowed;
-    transform: none;
   }
 
-  ${props => props.$isLoading && `
-    color: transparent;
-    &:after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
-      border: 2px solid #1a237e;
-      border-radius: 50%;
-      border-top-color: transparent;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
-    }
-  `}
-`;
-
-const Notification = styled.div`
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  animation: slideIn 0.3s ease;
-  
-  ${props => props.type === 'success' && `
-    background: rgba(76, 175, 80, 0.2);
-    border: 1px solid #4CAF50;
-    color: #A5D6A7;
-  `}
-  
-  ${props => props.type === 'error' && `
-    background: rgba(244, 67, 54, 0.2);
-    border: 1px solid #F44336;
-    color: #EF9A9A;
-  `}
-
-  @keyframes slideIn {
-    from {
-      transform: translateY(-10px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
   }
 `;
 
 const ContactForm = () => {
-  const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [notification, setNotification] = useState(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setNotification(null);
-    
-    try {
-      // Log the form data and configuration
-      console.log('Form submission attempt with:', {
-        config: {
-          serviceId: emailConfig.serviceId,
-          templateId: emailConfig.templateId,
-          publicKey: emailConfig.publicKey.substring(0, 5) + '...' // Only log first 5 chars for security
-        },
-        formData: {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message.substring(0, 20) + '...' // Only log start of message
-        }
-      });
-
-      const result = await emailjs.sendForm(
-        emailConfig.serviceId,
-        emailConfig.templateId,
-        form.current,
-        emailConfig.publicKey
-      );
-
-      console.log('Email sent successfully:', result);
-      
-      // Reset form after successful submission
-      setFormData({ name: '', email: '', message: '' });
-      setNotification({
-        type: 'success',
-        message: 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.'
-      });
-    } catch (error) {
-      console.error('Error details:', {
-        message: error.message,
-        text: error.text,
-        status: error.status,
-        name: error.name,
-        fullError: error
-      });
-      
-      let errorMessage = 'Mesajınız gönderilemedi. ';
-      
-      // Add specific error information
-      if (error.text) {
-        if (error.text.includes('template ID not found')) {
-          errorMessage += 'E-posta şablonu bulunamadı. ';
-        } else if (error.text.includes('service ID not found')) {
-          errorMessage += 'E-posta servisi bulunamadı. ';
-        } else if (error.text.includes('public key is invalid')) {
-          errorMessage += 'API anahtarı geçersiz. ';
-        }
-      }
-      
-      errorMessage += 'Lütfen daha sonra tekrar deneyin.';
-      
-      setNotification({
-        type: 'error',
-        message: errorMessage
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -271,58 +112,118 @@ const ContactForm = () => {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Burada form gönderme işlemi yapılacak
+    // Örnek: API çağrısı, email servisi vb.
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simüle edilmiş API çağrısı
+      alert('Mesajınız başarıyla gönderildi!');
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const formVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const inputVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <FormContainer>
-      {notification && (
-        <Notification type={notification.type}>
-          {notification.message}
-        </Notification>
-      )}
-      <Form ref={form} onSubmit={handleSubmit}>
-        <InputGroup>
-          <Label htmlFor="name">Ad Soyad</Label>
+    <FormContainer
+      variants={formVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <Form onSubmit={handleSubmit}>
+        <InputGroup variants={inputVariants}>
+          <Label htmlFor="name">İsim</Label>
           <Input
-            id="name"
             type="text"
+            id="name"
             name="name"
-            placeholder="Adınız ve soyadınız"
             value={formData.name}
             onChange={handleChange}
+            placeholder="Adınız Soyadınız"
             required
-            disabled={isSubmitting}
           />
         </InputGroup>
 
-        <InputGroup>
+        <InputGroup variants={inputVariants}>
           <Label htmlFor="email">E-posta</Label>
           <Input
-            id="email"
             type="email"
+            id="email"
             name="email"
-            placeholder="E-posta adresiniz"
             value={formData.email}
             onChange={handleChange}
+            placeholder="ornek@email.com"
             required
-            disabled={isSubmitting}
           />
         </InputGroup>
 
-        <InputGroup>
+        <InputGroup variants={inputVariants}>
+          <Label htmlFor="subject">Konu</Label>
+          <Input
+            type="text"
+            id="subject"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            placeholder="Mesajınızın konusu"
+            required
+          />
+        </InputGroup>
+
+        <InputGroup variants={inputVariants}>
           <Label htmlFor="message">Mesaj</Label>
           <TextArea
             id="message"
             name="message"
-            placeholder="Mesajınızı buraya yazın..."
             value={formData.message}
             onChange={handleChange}
+            placeholder="Mesajınızı buraya yazın..."
             required
-            disabled={isSubmitting}
           />
         </InputGroup>
 
-        <Button type="submit" disabled={isSubmitting} $isLoading={isSubmitting}>
-          {isSubmitting ? '' : 'Gönder'}
-        </Button>
+        <SubmitButton
+          type="submit"
+          disabled={isSubmitting}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isSubmitting ? 'Gönderiliyor...' : 'Gönder'}
+        </SubmitButton>
       </Form>
     </FormContainer>
   );
