@@ -8,7 +8,7 @@ const ContactContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
   padding: 2rem;
   min-height: 100vh;
@@ -19,14 +19,51 @@ const ContactContainer = styled.div`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #81d4fa;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(45deg, #fff, #4fc3f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-align: center;
+  width: 100%;
 
   @media (max-width: 768px) {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 480px) {
     font-size: 2rem;
     margin-bottom: 1.5rem;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  align-items: flex-start;
+
+  @media (max-width: 968px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const SocialSection = styled(motion.div)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(79, 195, 247, 0.2);
+  backdrop-filter: blur(10px);
+
+  @media (max-width: 968px) {
+    width: 100%;
+    padding: 1.5rem;
   }
 `;
 
@@ -35,8 +72,7 @@ const Text = styled(motion.p)`
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.95);
   margin-bottom: 2rem;
-  text-align: center;
-  max-width: 600px;
+  text-align: left;
 
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -45,17 +81,10 @@ const Text = styled(motion.p)`
   }
 `;
 
-const SocialLinks = styled(motion.div)`
+const SocialLinksContainer = styled(motion.div)`
   display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const SocialLink = styled(motion.a)`
@@ -63,28 +92,33 @@ const SocialLink = styled(motion.a)`
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
   font-size: 1.1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  background: rgba(129, 212, 250, 0.1);
+  border: 1px solid rgba(129, 212, 250, 0.2);
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(79, 195, 247, 0.2);
-
-  &:hover {
-    color: #b3e5fc;
-    transform: translateY(-2px);
-    background: rgba(129, 212, 250, 0.15);
-  }
 
   svg {
-    font-size: 1.2em;
+    font-size: 1.3em;
+  }
+
+  &:hover {
+    background: rgba(129, 212, 250, 0.15);
+    border-color: rgba(129, 212, 250, 0.4);
+    transform: translateX(10px);
   }
 
   @media (max-width: 768px) {
     font-size: 1rem;
-    padding: 0.4rem 0.8rem;
+    padding: 0.8rem 1.2rem;
   }
+`;
+
+const FormSection = styled(motion.div)`
+  flex: 2;
 `;
 
 const Contact = () => {
@@ -93,8 +127,8 @@ const Contact = () => {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.5,
-        staggerChildren: 0.2
+        duration: 0.6,
+        staggerChildren: 0.3
       }
     }
   };
@@ -102,15 +136,15 @@ const Contact = () => {
   const itemVariants = {
     hidden: { 
       opacity: 0,
-      y: 20,
-      filter: "blur(4px)"
+      y: 30,
+      filter: "blur(10px)"
     },
     visible: { 
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
       transition: {
-        duration: 0.5,
+        duration: 0.8,
         ease: "easeOut"
       }
     }
@@ -127,44 +161,46 @@ const Contact = () => {
       <Title variants={itemVariants}>
         İletişime Geç
       </Title>
-      <Text variants={itemVariants}>
-        Benimle iletişime geçmek, projeler hakkında konuşmak veya işbirliği yapmak
-        isterseniz aşağıdaki form veya sosyal medya hesaplarım üzerinden
-        ulaşabilirsiniz.
-      </Text>
-      <SocialLinks variants={containerVariants}>
-        <SocialLink
-          href="mailto:your.email@example.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaEnvelope /> E-posta
-        </SocialLink>
-        <SocialLink
-          href="https://github.com/yourusername"
-          target="_blank"
-          rel="noopener noreferrer"
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaGithub /> GitHub
-        </SocialLink>
-        <SocialLink
-          href="https://linkedin.com/in/yourusername"
-          target="_blank"
-          rel="noopener noreferrer"
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaLinkedin /> LinkedIn
-        </SocialLink>
-      </SocialLinks>
-      <ContactForm />
+      <ContentWrapper>
+        <SocialSection variants={itemVariants}>
+          <Text>
+            Benimle iletişime geçmek, projeler hakkında konuşmak veya işbirliği yapmak
+            isterseniz aşağıdaki kanallardan ulaşabilirsiniz.
+          </Text>
+          <SocialLinksContainer>
+            <SocialLink
+              href="mailto:your.email@example.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ x: 10 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaEnvelope /> E-posta
+            </SocialLink>
+            <SocialLink
+              href="https://github.com/EceSol"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ x: 10 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaGithub /> GitHub
+            </SocialLink>
+            <SocialLink
+              href="https://linkedin.com/in/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ x: 10 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaLinkedin /> LinkedIn
+            </SocialLink>
+          </SocialLinksContainer>
+        </SocialSection>
+        <FormSection variants={itemVariants}>
+          <ContactForm />
+        </FormSection>
+      </ContentWrapper>
     </ContactContainer>
   );
 };
