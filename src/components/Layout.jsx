@@ -86,11 +86,11 @@ const MainContent = styled.div`
   }
 
   section {
-    min-height: 100vh;
+    min-height: 50vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
     scroll-margin-top: 60px;
 
     @media (max-width: 1023px) {

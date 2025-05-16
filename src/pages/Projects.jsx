@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const ProjectsContainer = styled.div`
   max-width: 1200px;
   width: 100%;
   padding: 2rem;
   min-height: 100vh;
+  scroll-margin-top: 80px;
+  position: relative;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     padding: 1rem;
   }
+`;
+
+const RevealContainer = styled(motion.div)`
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 `;
 
 const Title = styled(motion.h2)`
@@ -21,6 +31,19 @@ const Title = styled(motion.h2)`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #4fc3f7, transparent);
+    border-radius: 2px;
+  }
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -65,16 +88,35 @@ const ProjectCard = styled(motion.div)`
   flex-direction: column;
   transition: all 0.3s ease;
 
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
   &:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(79, 195, 247, 0.4);
+
+    &:before {
+      left: 100%;
+    }
   }
 `;
 
 const ProjectTitle = styled.h3`
   font-size: 1.5rem;
-  color: #81d4fa;
   margin-bottom: 1rem;
   background: linear-gradient(45deg, #81d4fa, #4fc3f7);
   -webkit-background-clip: text;
@@ -180,13 +222,19 @@ const ShowMoreButton = styled(motion.button)`
 
 const Projects = () => {
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const controls = useAnimation();
+  const { scrollY } = useScroll();
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true
+  });
 
   const featuredProjects = [
     {
-      title: 'Snake Game',
-      description: 'Python kullanarak geliştirilen modern bir yılan oyunu. Özel efektler, skor sistemi ve farklı zorluk seviyeleri içeren eğlenceli bir oyun deneyimi sunar.',
-      techStack: ['Python', 'Game Development'],
-      github: 'https://github.com/EceSol/Snake_Game'
+      title: 'Yemek Tarif Asistanı',
+      description: 'Fromscrape ve Backend kullanarak geliştirilen, elinizde olan malzemelere göre yemek tarifi sunan akıllı bir asistan. Kullanıcıların yemek türü, mutfak tercihi ve alerjen bilgilerini dikkate alarak kişiselleştirilmiş tarifler sunar.',
+      techStack: ['Python', 'Web Scraping', 'Backend'],
+      github: 'https://github.com/k0laa/Yemek_Tarif_Asistani'
     },
     {
       title: 'Şifre Yönetim Uygulaması',
@@ -195,25 +243,25 @@ const Projects = () => {
       github: 'https://github.com/EceSol/sifre_yonetim_uygulama'
     },
     {
-      title: 'PyQt5 Word',
-      description: 'PyQt5 kütüphanesi kullanılarak geliştirilmiş bir kelime işlemci uygulaması. Temel metin düzenleme özellikleri ve kullanıcı dostu arayüz.',
-      techStack: ['Python', 'PyQt5', 'GUI Development'],
-      github: 'https://github.com/EceSol/PyQt5_Word'
+      title: 'Snake Game',
+      description: 'Python kullanarak geliştirilen modern bir yılan oyunu. Özel efektler, skor sistemi ve farklı zorluk seviyeleri içeren eğlenceli bir oyun deneyimi sunar.',
+      techStack: ['Python', 'Game Development'],
+      github: 'https://github.com/EceSol/Snake_Game'
     }
   ];
 
   const additionalProjects = [
     {
+      title: 'PyQt5 Word',
+      description: 'PyQt5 kütüphanesi kullanılarak geliştirilmiş bir kelime işlemci uygulaması. Temel metin düzenleme özellikleri ve kullanıcı dostu arayüz.',
+      techStack: ['Python', 'PyQt5', 'GUI Development'],
+      github: 'https://github.com/EceSol/PyQt5_Word'
+    },
+    {
       title: 'PyQt5 Soru Bankası',
       description: 'PyQt5 kütüphanesi kullanarak geliştirilen bir soru bankası uygulaması. Öğrencilerin çalışmalarını kolaylaştıran ve test çözmelerini sağlayan interaktif bir platform.',
       techStack: ['Python', 'PyQt5', 'Database'],
       github: 'https://github.com/EceSol/PyQt5_Soru_Bankasi'
-    },
-    {
-      title: 'React Nodejs Portfolyo',
-      description: 'React ve Node.js kullanılarak geliştirilen modern ve responsive portfolyo websitesi.',
-      techStack: ['React', 'Node.js', 'JavaScript'],
-      github: 'https://github.com/EceSol/React_Nodejs_Portfolyo'
     }
   ];
 
@@ -222,8 +270,8 @@ const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.6,
-        staggerChildren: 0.3
+        duration: 0.5,
+        staggerChildren: 0.2
       }
     }
   };
@@ -231,88 +279,100 @@ const Projects = () => {
   const cardVariants = {
     hidden: { 
       opacity: 0,
-      y: 30,
-      filter: "blur(10px)"
+      y: 20,
+      filter: "blur(5px)"
     },
     visible: { 
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: "easeOut"
       }
     }
   };
 
+  const revealVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 30,
+      skewY: 1,
+      filter: "blur(5px)"
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      skewY: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (inView || showAllProjects) {
+      controls.start('visible');
+    }
+  }, [controls, inView, showAllProjects]);
+
+  const handleShowMore = () => {
+    setShowAllProjects(true);
+    // After state update, ensure animations are triggered
+    setTimeout(() => {
+      controls.start('visible');
+    }, 100);
+  };
+
+  const handleShowLess = () => {
+    const projectsTitle = document.querySelector('#projects h2');
+    if (projectsTitle) {
+      const headerOffset = 100; // Biraz daha fazla offset ekledim başlığın tam görünmesi için
+      const elementPosition = projectsTitle.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Scroll başladıktan kısa bir süre sonra state'i güncelle
+      setTimeout(() => {
+        setShowAllProjects(false);
+      }, 300); // Scroll başladıktan sonra state'i güncelle
+    }
+  };
+
   return (
     <ProjectsContainer
+      id="projects"
+      ref={ref}
       as={motion.div}
-      variants={containerVariants}
       initial="hidden"
-      animate="visible"
+      animate={controls}
     >
-      <Title variants={cardVariants}>
-        Projelerim
-      </Title>
-      <ProjectGrid>
-        {featuredProjects.map((project, index) => (
-          <ProjectCard
-            key={index}
-            variants={cardVariants}
-            whileHover={{ y: -5 }}
-          >
-            <ProjectTitle>{project.title}</ProjectTitle>
-            <ProjectDescription>{project.description}</ProjectDescription>
-            <TechStack>
-              {project.techStack.map((tech, techIndex) => (
-                <TechTag
-                  key={techIndex}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                >
-                  {tech}
-                </TechTag>
-              ))}
-            </TechStack>
-            <ProjectLinks>
-              {project.github && (
-                <ProjectLink
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaGithub /> GitHub
-                </ProjectLink>
-              )}
-              {project.liveLink && (
-                <ProjectLink
-                  href={project.liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaExternalLinkAlt /> Canlı
-                </ProjectLink>
-              )}
-            </ProjectLinks>
-          </ProjectCard>
-        ))}
-      </ProjectGrid>
-      
-      {showAllProjects && (
-        <ProjectGrid
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {additionalProjects.map((project, index) => (
+      <RevealContainer
+        variants={revealVariants}
+      >
+        <Title>
+          Projelerim
+        </Title>
+      </RevealContainer>
+
+      <RevealContainer
+        variants={containerVariants}
+      >
+        <ProjectGrid>
+          {featuredProjects.map((project, index) => (
             <ProjectCard
               key={index}
               variants={cardVariants}
-              whileHover={{ y: -5 }}
+              whileHover={{ 
+                y: -5,
+                transition: { duration: 0.2 }
+              }}
             >
               <ProjectTitle>{project.title}</ProjectTitle>
               <ProjectDescription>{project.description}</ProjectDescription>
@@ -353,10 +413,68 @@ const Projects = () => {
             </ProjectCard>
           ))}
         </ProjectGrid>
+      </RevealContainer>
+      
+      {showAllProjects && (
+        <RevealContainer
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <ProjectGrid>
+            {additionalProjects.map((project, index) => (
+              <ProjectCard
+                key={index}
+                variants={cardVariants}
+                whileHover={{ 
+                  y: -5,
+                  transition: { duration: 0.2 }
+                }}
+              >
+                <ProjectTitle>{project.title}</ProjectTitle>
+                <ProjectDescription>{project.description}</ProjectDescription>
+                <TechStack>
+                  {project.techStack.map((tech, techIndex) => (
+                    <TechTag
+                      key={techIndex}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {tech}
+                    </TechTag>
+                  ))}
+                </TechStack>
+                <ProjectLinks>
+                  {project.github && (
+                    <ProjectLink
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaGithub /> GitHub
+                    </ProjectLink>
+                  )}
+                  {project.liveLink && (
+                    <ProjectLink
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaExternalLinkAlt /> Canlı
+                    </ProjectLink>
+                  )}
+                </ProjectLinks>
+              </ProjectCard>
+            ))}
+          </ProjectGrid>
+        </RevealContainer>
       )}
 
       <ShowMoreButton
-        onClick={() => setShowAllProjects(!showAllProjects)}
+        onClick={showAllProjects ? handleShowLess : handleShowMore}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

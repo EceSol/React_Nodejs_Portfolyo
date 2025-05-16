@@ -20,12 +20,13 @@ const AboutContainer = styled.div`
 const Section = styled.section`
   margin-bottom: 4rem;
   padding: 0 1rem;
-  scroll-margin-top: 80px;
+  scroll-margin-top: 35vh;
+  width: 100%;
 
   @media (max-width: 768px) {
     margin-bottom: 3rem;
     padding: 0;
-    scroll-margin-top: 60px;
+    scroll-margin-top: 25vh;
   }
 `;
 
@@ -60,17 +61,22 @@ const Title = styled.h2`
 
 const AboutGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 3rem;
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-top: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 
   @media (max-width: 480px) {
+    grid-template-columns: 1fr;
     gap: 1rem;
     margin-top: 1.5rem;
   }
@@ -87,6 +93,10 @@ const AboutCard = styled(motion.div)`
   padding: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   
   &:hover {
     transform: translateY(-5px);
@@ -111,9 +121,11 @@ const CardTitle = styled.h3`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 
   svg {
     font-size: 1.5rem;
+    flex-shrink: 0;
   }
 
   @media (max-width: 480px) {
@@ -126,6 +138,7 @@ const CardText = styled.p`
   line-height: 1.6;
   margin-bottom: 1rem;
   font-size: 1.1rem;
+  flex-grow: 1;
 
   @media (max-width: 480px) {
     font-size: 1rem;
@@ -349,9 +362,27 @@ const About = () => {
     }
   };
 
+  React.useEffect(() => {
+    const handleHash = () => {
+      if (window.location.hash === '#about') {
+        setTimeout(() => {
+          const aboutSection = document.querySelector('section');
+          if (aboutSection) {
+            aboutSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
+
   return (
     <AboutContainer>
-      <Section>
+      <Section id="about">
         <Title
           as={motion.h2}
           variants={titleVariants}
