@@ -117,8 +117,9 @@ const Home = () => {
       <Subtitle
         variants={itemVariants}
       >
+        Evet, soldaki benim. Sizlerle bir yola çıkmak için burdayım.
         Yazılım geliştirme tutkusu ile hareket eden, yenilikçi çözümler üreten
-        bir geliştiriciyim. Python ve web teknolojileri konusunda deneyimliyim.
+        bir geliştiriciyim.
       </Subtitle>
     </HomeContainer>
   );

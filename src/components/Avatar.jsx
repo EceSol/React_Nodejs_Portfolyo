@@ -67,12 +67,12 @@ const Avatar = () => {
   const [quote, setQuote] = useState('');
 
   const quotes = {
-    home: "Merhaba! Ben Ece. Kodlarla dans etmeyi seven bir yazılımcıyım! 💃",
+    home: "Kodlarla dans etmeyi seven bir yazılımcıyım! 💃",
     about: "Kendimi anlatırken bile bug çıkarmamaya çalışıyorum! 🐛",
-    skills: "Yeteneklerim mi? Stack Overflow'u ezbere biliyorum! 😅",
+    skills: "Yeteneklerim mi? 😅",
     projects: "Her projede bir macera, her bug'da bir ders var! 🚀",
-    experience: "Tecrübelerim CV'me sığmıyor, scroll'u aşağı çekin! 📜",
-    contact: "Mail kutum her zaman açık, spam değilseniz tabii ki! 📧"
+    experience: "20 senede ne yaptıysam :) 📜",
+    contact: "Yoldayız, geliyor musun? 📧"
   };
 
   useEffect(() => {

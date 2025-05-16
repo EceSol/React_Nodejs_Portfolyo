@@ -231,7 +231,7 @@ const Projects = () => {
   const featuredProjects = [
     {
       title: 'Yemek Tarif Asistanı',
-      description: 'Fromscrape ve Backend kullanarak geliştirilen, elinizde olan malzemelere göre yemek tarifi sunan akıllı bir asistan. Kullanıcıların yemek türü, mutfak tercihi ve alerjen bilgilerini dikkate alarak kişiselleştirilmiş tarifler sunar.',
+      description: 'Python kullanarak geliştirilen, elinizde olan malzemelere göre yemek tarifi sunan akıllı bir asistan. Kullanıcıların yemek türü, mutfak tercihi ve alerjen bilgilerini dikkate alarak kişiselleştirilmiş tarifler sunar.',
       techStack: ['Python', 'Web Scraping', 'Backend'],
       github: 'https://github.com/k0laa/Yemek_Tarif_Asistani'
     },
