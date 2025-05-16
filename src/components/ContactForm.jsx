@@ -124,7 +124,7 @@ const ContactForm = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          placeholder="İsim *"
+          placeholder="İsim "
           required
         />
         <Input
@@ -132,14 +132,14 @@ const ContactForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="E-posta *"
+          placeholder="E-posta "
           required
         />
         <TextArea
           name="message"
           value={formData.message}
           onChange={handleChange}
-          placeholder="Mesaj *"
+          placeholder="Mesajınızı buraya yazınız..."
           required
         />
         <SubmitButton

@@ -8,12 +8,17 @@ const ProjectsContainer = styled.div`
   max-width: 1200px;
   width: 100%;
   padding: 2rem;
-  min-height: 100vh;
+  min-height: 50vh;
   scroll-margin-top: 80px;
   position: relative;
   overflow: hidden;
+  margin: 0 auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
     padding: 1rem;
   }
 `;
@@ -58,60 +63,54 @@ const Title = styled(motion.h2)`
 
 const ProjectGrid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 3rem;
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2rem;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin-bottom: 1.5rem;
   }
 `;
 
 const ProjectCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  padding: 1.5rem;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(79, 195, 247, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
   backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.05),
-      transparent
-    );
-    transition: 0.5s;
-  }
-
+  justify-content: flex-start;
+  
   &:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(79, 195, 247, 0.4);
+    border-color: rgba(129, 212, 250, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
 
-    &:before {
-      left: 100%;
-    }
+  @media (max-width: 900px) {
+    padding: 1.25rem;
+  }
+
+  @media (max-width: 600px) {
+    padding: 1rem;
   }
 `;
 

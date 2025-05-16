@@ -56,13 +56,18 @@ const Sidebar = styled.div`
   @media (max-width: 1023px) {
     width: 100%;
     height: auto;
-    padding: 1rem;
+    padding: 1.5rem 1rem;
     margin-top: 60px;
     position: relative;
   }
 
   @media (max-width: 768px) {
-    padding: 0.5rem;
+    padding: 1rem 0.5rem;
+    margin-top: 50px;
+  }
+
+  @media (max-height: 668px) {
+    padding: 1rem;
   }
 `;
 
@@ -77,12 +82,13 @@ const MainContent = styled.div`
 
   @media (max-width: 1023px) {
     margin-left: 0;
-    padding: 1rem;
-    padding-top: 0;
+    padding: 1.5rem;
+    padding-top: calc(60px + 1.5rem);
   }
 
   @media (max-width: 768px) {
-    padding: 0.5rem;
+    padding: 1rem;
+    padding-top: calc(50px + 1rem);
   }
 
   section {
@@ -92,14 +98,25 @@ const MainContent = styled.div`
     justify-content: center;
     padding: 2.5rem 1rem;
     scroll-margin-top: 60px;
+    position: relative;
+
+    @media (min-width: 1024px) {
+      padding: 2.5rem 2rem;
+    }
 
     @media (max-width: 1023px) {
-      padding: 4rem 1rem;
+      padding: 3rem 1rem;
+      scroll-margin-top: 55px;
     }
 
     @media (max-width: 768px) {
-      padding: 3rem 0.5rem;
+      padding: 2.5rem 0.5rem;
       scroll-margin-top: 50px;
+    }
+
+    @media (max-height: 668px) {
+      min-height: 60vh; // Daha kısa ekranlarda biraz daha uzun olsun
+      padding: 2rem 0.5rem;
     }
   }
 `;
@@ -108,6 +125,10 @@ const ContentWrapper = styled.div`
   @media (max-width: 1023px) {
     display: flex;
     flex-direction: column;
+  }
+
+  @media (max-height: 668px) {
+    gap: 1rem;
   }
 `;
 
