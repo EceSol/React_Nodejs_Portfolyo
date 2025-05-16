@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Avatar from './Avatar';
 import Navigation from './Navigation';
 import Home from '../pages/Home';
@@ -49,6 +49,8 @@ const Sidebar = styled.div`
     position: fixed;
     height: calc(100vh - 60px);
     top: 60px;
+    left: 0;
+    padding: 2rem 1rem;
   }
 
   @media (max-width: 1023px) {
@@ -56,6 +58,11 @@ const Sidebar = styled.div`
     height: auto;
     padding: 1rem;
     margin-top: 60px;
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
   }
 `;
 
@@ -65,6 +72,7 @@ const MainContent = styled.div`
 
   @media (min-width: 1024px) {
     margin-left: 300px;
+    padding: 2rem 3rem;
   }
 
   @media (max-width: 1023px) {
@@ -73,15 +81,25 @@ const MainContent = styled.div`
     padding-top: 0;
   }
 
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
+
   section {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem 1rem;
+    scroll-margin-top: 60px;
+
+    @media (max-width: 1023px) {
+      padding: 4rem 1rem;
+    }
 
     @media (max-width: 768px) {
-      padding: 1rem 0.5rem;
+      padding: 3rem 0.5rem;
+      scroll-margin-top: 50px;
     }
   }
 `;

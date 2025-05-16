@@ -12,10 +12,18 @@ const HomeContainer = styled.div`
   padding: 0 2rem;
   min-height: 100vh;
 
-  @media (max-width: 768px) {
-    padding: 0 1rem;
+  @media (max-width: 1024px) {
+    padding: 0 1.5rem;
     align-items: center;
     text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 0.5rem;
   }
 `;
 
@@ -27,12 +35,18 @@ const Title = styled(motion.h1)`
   -webkit-text-fill-color: transparent;
   line-height: 1.2;
 
+  @media (max-width: 1024px) {
+    font-size: 3.5rem;
+  }
+
   @media (max-width: 768px) {
-    font-size: 3rem;
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -42,30 +56,66 @@ const Subtitle = styled(motion.p)`
   max-width: 600px;
   line-height: 1.6;
 
-  @media (max-width: 768px) {
-    font-size: 1.3rem;
+  @media (max-width: 1024px) {
+    font-size: 1.4rem;
     max-width: 100%;
   }
 
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
   @media (max-width: 480px) {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    line-height: 1.4;
   }
 `;
 
 const Home = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20,
+      filter: "blur(4px)"
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <HomeContainer>
+    <HomeContainer
+      as={motion.div}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      viewport={{ once: false }}
+    >
       <Title
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        variants={itemVariants}
       >
         Merhaba, Ben Ece Sol
       </Title>
       <Subtitle
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+        variants={itemVariants}
       >
         Yazılım geliştirme tutkusu ile hareket eden, yenilikçi çözümler üreten
         bir geliştiriciyim. Python ve web teknolojileri konusunda deneyimliyim.

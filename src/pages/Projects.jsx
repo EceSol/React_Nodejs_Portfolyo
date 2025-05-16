@@ -4,46 +4,87 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const ProjectsContainer = styled.div`
-  padding: 2rem 0;
-  scroll-margin-top: 80px;
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
-const Title = styled.h2`
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #4fc3f7;
+const Title = styled(motion.h2)`
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(45deg, #fff, #4fc3f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
-const ProjectGrid = styled.div`
+const ProjectGrid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const ProjectCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  border-radius: 15px;
   padding: 1.5rem;
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-
-  &:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
-  }
+  border: 1px solid rgba(79, 195, 247, 0.2);
+  backdrop-filter: blur(10px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ProjectTitle = styled.h3`
   font-size: 1.5rem;
-  color: #4fc3f7;
+  color: #81d4fa;
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const ProjectDescription = styled.p`
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 1.5rem;
   line-height: 1.6;
+  flex-grow: 1;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 `;
 
 const TechStack = styled.div`
@@ -53,49 +94,69 @@ const TechStack = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-const Tech = styled.span`
-  background: rgba(79, 195, 247, 0.1);
-  color: #4fc3f7;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
+const TechTag = styled(motion.span)`
+  background: rgba(129, 212, 250, 0.1);
+  color: #81d4fa;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
   font-size: 0.9rem;
-`;
+  border: 1px solid rgba(129, 212, 250, 0.2);
 
-const Links = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
-
-const LinkButton = styled.a`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #4fc3f7;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #81d4fa;
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
   }
 `;
 
-const ToggleButton = styled.button`
-  background: rgba(79, 195, 247, 0.1);
-  color: #4fc3f7;
-  border: 1px solid #4fc3f7;
-  padding: 0.8rem 2rem;
-  border-radius: 25px;
+const ProjectLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const ProjectLink = styled(motion.a)`
+  color: #81d4fa;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: rgba(129, 212, 250, 0.1);
+  border: 1px solid rgba(129, 212, 250, 0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(129, 212, 250, 0.15);
+    border-color: rgba(129, 212, 250, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+`;
+
+const ShowMoreButton = styled(motion.button)`
+  background: rgba(129, 212, 250, 0.1);
+  color: #81d4fa;
+  border: 1px solid rgba(129, 212, 250, 0.2);
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
   cursor: pointer;
-  margin: 3rem auto;
+  font-size: 1rem;
+  margin: 0 auto;
   display: block;
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(79, 195, 247, 0.2);
-    transform: translateY(-2px);
+    background: rgba(129, 212, 250, 0.15);
+    border-color: rgba(129, 212, 250, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.5rem;
   }
 `;
 
@@ -103,6 +164,13 @@ const Projects = () => {
   const [showAllProjects, setShowAllProjects] = useState(false);
 
   const featuredProjects = [
+    {
+      title: "Portfolyo Websitesi",
+      description: "Kişisel portfolyo websitesi. React ve styled-components kullanılarak geliştirildi.",
+      techStack: ["React", "Styled Components", "Framer Motion"],
+      githubLink: "https://github.com/yourusername/portfolio",
+      liveLink: "https://yourwebsite.com"
+    },
     {
       title: 'Yemek Tarif Asistanı',
       description: 'Fromscrape ve Backend kullanarak geliştirilen, elinizde olan malzemelere göre yemek tarifi sunan akıllı bir asistan. Kullanıcıların yemek türü, mutfak tercihi ve alerjen bilgilerini dikkate alarak kişiselleştirilmiş tarifler sunar.',
@@ -159,42 +227,26 @@ const Projects = () => {
     ? [...featuredProjects, ...additionalProjects]
     : featuredProjects;
 
-  const toggleProjects = () => {
-    if (showAllProjects) {
-      const projectsSection = document.getElementById('projects');
-      if (projectsSection) {
-        // Scroll işlemini başlat
-        projectsSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-
-        // Geçici olarak scroll'u kilitle
-        document.body.style.overflow = 'hidden';
-
-        // Scroll tamamlanana kadar bekle
-        setTimeout(() => {
-          setShowAllProjects(false);
-          // Scroll kilidini kaldır
-          document.body.style.overflow = 'auto';
-        }, 500);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.2
       }
-    } else {
-      setShowAllProjects(true);
     }
   };
 
   const cardVariants = {
     hidden: { 
-      opacity: 0, 
-      y: 50,
-      scale: 0.95,
+      opacity: 0,
+      y: 20,
       filter: "blur(4px)"
     },
     visible: { 
-      opacity: 1, 
+      opacity: 1,
       y: 0,
-      scale: 1,
       filter: "blur(0px)",
       transition: {
         duration: 0.5,
@@ -203,68 +255,76 @@ const Projects = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
   return (
-    <ProjectsContainer id="projects">
-      <Title>Projelerim</Title>
-      <ProjectGrid
-        as={motion.div}
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-      >
+    <ProjectsContainer
+      as={motion.div}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      viewport={{ once: false }}
+    >
+      <Title variants={cardVariants}>
+        Projeler
+      </Title>
+      <ProjectGrid>
         {displayedProjects.map((project, index) => (
           <ProjectCard
             key={index}
             variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            whileHover={{ 
+              y: -5,
+              transition: { duration: 0.3 }
+            }}
           >
             <ProjectTitle>{project.title}</ProjectTitle>
             <ProjectDescription>{project.description}</ProjectDescription>
             <TechStack>
               {project.techStack.map((tech, techIndex) => (
-                <Tech key={techIndex}>{tech}</Tech>
+                <TechTag
+                  key={techIndex}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {tech}
+                </TechTag>
               ))}
             </TechStack>
-            <Links>
+            <ProjectLinks>
               {project.github && (
-                <LinkButton href={project.github} target="_blank" rel="noopener noreferrer">
+                <ProjectLink
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <FaGithub /> GitHub
-                </LinkButton>
+                </ProjectLink>
               )}
               {project.demo && (
-                <LinkButton href={project.demo} target="_blank" rel="noopener noreferrer">
+                <ProjectLink
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <FaExternalLinkAlt /> Demo
-                </LinkButton>
+                </ProjectLink>
               )}
-            </Links>
+            </ProjectLinks>
           </ProjectCard>
         ))}
       </ProjectGrid>
-      <ToggleButton
-        as={motion.button}
-        onClick={toggleProjects}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.3 }}
-      >
-        {showAllProjects ? 'Daha Az Göster' : 'Daha Fazla Göster'}
-      </ToggleButton>
+      {additionalProjects.length > 0 && (
+        <ShowMoreButton
+          onClick={() => setShowAllProjects(!showAllProjects)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {showAllProjects ? "Daha Az Göster" : "Daha Fazla Göster"}
+        </ShowMoreButton>
+      )}
     </ProjectsContainer>
   );
 };

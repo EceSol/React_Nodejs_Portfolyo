@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Nav = styled.nav`
   display: flex;
@@ -21,75 +22,55 @@ const Nav = styled.nav`
 
   @media (max-width: 768px) {
     padding: 0 1rem;
+    height: 50px;
   }
 `;
 
-const Logo = styled.div`
+const Logo = styled(motion.div)`
   font-size: 2rem;
   font-weight: bold;
   color: #81d4fa;
   margin-right: 3rem;
   cursor: pointer;
-  transition: color 0.3s ease;
-  min-width: 50px;
   z-index: 1001;
 
-  &:hover {
-    color: #b3e5fc;
-  }
-
   @media (max-width: 768px) {
-    font-size: 1.8rem;
-    margin-right: 1rem;
-  }
-
-  @media (max-width: 480px) {
     font-size: 1.5rem;
+    margin-right: 0;
   }
 `;
 
-const NavItems = styled.div`
+const NavItems = styled(motion.div)`
   display: flex;
   gap: 2rem;
   margin-left: auto;
-  padding-right: 2rem;
+  align-items: center;
 
   @media (max-width: 768px) {
     display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
     flex-direction: column;
     position: fixed;
-    top: 60px;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     background: linear-gradient(to bottom, 
       #000000 0%,
       #0d47a1 40%,
       #1565c0 70%,
       #1976d2 100%
     );
-    padding: 1rem;
-    gap: 0.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    animation: slideDown 0.3s ease-out;
-  }
-
-  @keyframes slideDown {
-    from {
-      transform: translateY(-10px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    padding: 4rem 2rem;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
-const NavItem = styled.a`
+const NavItem = styled(motion.a)`
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   padding: 0.8rem 1.2rem;
-  transition: all 0.3s ease;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
@@ -121,22 +102,18 @@ const NavItem = styled.a`
   }
 
   @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
     width: 100%;
     text-align: center;
-    padding: 1rem;
-    border-radius: 4px;
     
     &:hover {
       background: rgba(129, 212, 250, 0.15);
     }
-
-    &:active {
-      transform: scale(0.98);
-    }
   }
 `;
 
-const MenuButton = styled.button`
+const MenuButton = styled(motion.button)`
   display: none;
   background: none;
   border: none;
@@ -144,18 +121,7 @@ const MenuButton = styled.button`
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
-  margin-left: auto;
   z-index: 1001;
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: #b3e5fc;
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
 
   @media (max-width: 768px) {
     display: flex;
@@ -166,31 +132,169 @@ const MenuButton = styled.button`
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  const menuVariants = {
+    hidden: { 
+      opacity: 0,
+      y: -20
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        staggerChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
+    visible: { 
+      opacity: 1,
+      y: 0
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top >= -100 && rect.top <= 300) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
+      const offset = 60; // Height of the navbar
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
       });
+      
       setIsMenuOpen(false);
     }
   };
 
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   return (
     <Nav>
-      <Logo onClick={() => scrollToSection('home')}>ES</Logo>
-      <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+      <Logo
+        onClick={() => scrollToSection('home')}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        ES
+      </Logo>
+      <MenuButton
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
         {isMenuOpen ? '✕' : '☰'}
       </MenuButton>
-      <NavItems $isOpen={isMenuOpen}>
-        <NavItem onClick={() => scrollToSection('about')}>Ben Kimim?</NavItem>
-        <NavItem onClick={() => scrollToSection('skills')}>Yeteneklerim</NavItem>
-        <NavItem onClick={() => scrollToSection('projects')}>Projeler</NavItem>
-        <NavItem onClick={() => scrollToSection('experience')}>Deneyim</NavItem>
-        <NavItem onClick={() => scrollToSection('contact')}>İletişim</NavItem>
-      </NavItems>
+      <AnimatePresence>
+        {(isMenuOpen || window.innerWidth > 768) && (
+          <NavItems
+            $isOpen={isMenuOpen}
+            variants={menuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <NavItem
+              variants={itemVariants}
+              onClick={() => scrollToSection('about')}
+              style={{
+                color: activeSection === 'about' ? '#b3e5fc' : undefined,
+                background: activeSection === 'about' ? 'rgba(129, 212, 250, 0.1)' : undefined
+              }}
+            >
+              Ben Kimim?
+            </NavItem>
+            <NavItem
+              variants={itemVariants}
+              onClick={() => scrollToSection('skills')}
+              style={{
+                color: activeSection === 'skills' ? '#b3e5fc' : undefined,
+                background: activeSection === 'skills' ? 'rgba(129, 212, 250, 0.1)' : undefined
+              }}
+            >
+              Yeteneklerim
+            </NavItem>
+            <NavItem
+              variants={itemVariants}
+              onClick={() => scrollToSection('projects')}
+              style={{
+                color: activeSection === 'projects' ? '#b3e5fc' : undefined,
+                background: activeSection === 'projects' ? 'rgba(129, 212, 250, 0.1)' : undefined
+              }}
+            >
+              Projeler
+            </NavItem>
+            <NavItem
+              variants={itemVariants}
+              onClick={() => scrollToSection('experience')}
+              style={{
+                color: activeSection === 'experience' ? '#b3e5fc' : undefined,
+                background: activeSection === 'experience' ? 'rgba(129, 212, 250, 0.1)' : undefined
+              }}
+            >
+              Deneyim
+            </NavItem>
+            <NavItem
+              variants={itemVariants}
+              onClick={() => scrollToSection('contact')}
+              style={{
+                color: activeSection === 'contact' ? '#b3e5fc' : undefined,
+                background: activeSection === 'contact' ? 'rgba(129, 212, 250, 0.1)' : undefined
+              }}
+            >
+              İletişim
+            </NavItem>
+          </NavItems>
+        )}
+      </AnimatePresence>
     </Nav>
   );
 };
