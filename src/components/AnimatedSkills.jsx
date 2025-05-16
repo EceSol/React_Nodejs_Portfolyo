@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Lottie from 'lottie-react';
+import { motion } from 'framer-motion';
 
-const AnimationContainer = styled.div`
+const AnimationContainer = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
@@ -21,7 +22,7 @@ const AnimationContainer = styled.div`
   }
 `;
 
-const AnimationWrapper = styled.div`
+const AnimationWrapper = styled(motion.div)`
   position: relative;
   background: linear-gradient(
     135deg,
@@ -37,16 +38,6 @@ const AnimationWrapper = styled.div`
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(129, 212, 250, 0.3);
-    
-    &:before {
-      opacity: 1;
-    }
-  }
 
   &:before {
     content: '';
@@ -74,7 +65,7 @@ const AnimationWrapper = styled.div`
   }
 `;
 
-const AnimationTitle = styled.h3`
+const AnimationTitle = styled(motion.h3)`
   color: #81d4fa;
   font-size: 1.5rem;
   margin: 1rem 0;
@@ -92,7 +83,7 @@ const AnimationTitle = styled.h3`
   }
 `;
 
-const AnimationDescription = styled.p`
+const AnimationDescription = styled(motion.p)`
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
   font-size: 0.9rem;
@@ -110,7 +101,7 @@ const AnimationDescription = styled.p`
   }
 `;
 
-const LottieWrapper = styled.div`
+const LottieWrapper = styled(motion.div)`
   width: 200px;
   height: 200px;
   display: flex;
@@ -175,6 +166,86 @@ const AnimatedSkills = () => {
     loadAnimations();
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 50,
+      scale: 0.9,
+      filter: "blur(4px)"
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const titleVariants = {
+    hidden: { 
+      opacity: 0,
+      y: -20,
+      filter: "blur(2px)"
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.4,
+        delay: 0.2
+      }
+    }
+  };
+
+  const descriptionVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20,
+      filter: "blur(2px)"
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.4,
+        delay: 0.3
+      }
+    }
+  };
+
+  const lottieVariants = {
+    hidden: { 
+      scale: 0.8,
+      opacity: 0,
+      rotate: -10
+    },
+    visible: { 
+      scale: 1,
+      opacity: 1,
+      rotate: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   if (!animations.coding || !animations.react || !animations.mobile) {
     return <LoadingText>Animasyonlar yükleniyor...</LoadingText>;
   }
@@ -198,18 +269,38 @@ const AnimatedSkills = () => {
   ];
 
   return (
-    <AnimationContainer>
+    <AnimationContainer
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.2 }}
+    >
       {animationItems.map((item, index) => (
-        <AnimationWrapper key={index}>
-          <LottieWrapper>
+        <AnimationWrapper
+          key={index}
+          variants={cardVariants}
+          whileHover={{ 
+            scale: 1.02,
+            boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)",
+            borderColor: "rgba(129, 212, 250, 0.3)"
+          }}
+          transition={{ duration: 0.2 }}
+        >
+          <LottieWrapper
+            variants={lottieVariants}
+          >
             <Lottie
               animationData={item.data}
               loop={true}
               style={{ width: '100%', height: '100%' }}
             />
           </LottieWrapper>
-          <AnimationTitle>{item.title}</AnimationTitle>
-          <AnimationDescription>{item.description}</AnimationDescription>
+          <AnimationTitle variants={titleVariants}>
+            {item.title}
+          </AnimationTitle>
+          <AnimationDescription variants={descriptionVariants}>
+            {item.description}
+          </AnimationDescription>
         </AnimationWrapper>
       ))}
     </AnimationContainer>

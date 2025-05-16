@@ -261,7 +261,6 @@ const experiencesData = [
 
 const Experience = () => {
   const sortedExperiences = [...experiencesData].sort((a, b) => a.order - b.order);
-  const totalItems = sortedExperiences.length;
 
   return (
     <ExperienceContainer>
@@ -281,7 +280,7 @@ const Experience = () => {
               filter: "blur(0px)"
             }}
             viewport={{ 
-              once: true,
+              once: false,
               amount: 0.3,
               margin: "-50px"
             }}
@@ -291,12 +290,24 @@ const Experience = () => {
               ease: "easeOut"
             }}
           >
-            <TimelineDot>{item.icon}</TimelineDot>
+            <TimelineDot
+              as={motion.div}
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ 
+                duration: 0.3, 
+                delay: index * 0.1 + 0.2,
+                ease: "backOut"
+              }}
+            >
+              {item.icon}
+            </TimelineDot>
             <TimelineContent
               initial={{ scale: 0.9, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ 
-                once: true,
+                once: false,
                 amount: 0.3,
                 margin: "-50px"
               }}
@@ -304,6 +315,10 @@ const Experience = () => {
                 duration: 0.3, 
                 delay: index * 0.1 + 0.2,
                 ease: "easeOut"
+              }}
+              whileHover={{ 
+                scale: 1.02,
+                transition: { duration: 0.2 }
               }}
             >
               <TypeBadge type={item.type}>

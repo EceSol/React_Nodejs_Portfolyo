@@ -285,20 +285,89 @@ const About = () => {
   ];
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { 
+      opacity: 0, 
+      y: 20,
+      scale: 0.95,
+      filter: "blur(4px)"
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
   };
 
   const skillVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1 }
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      y: 30,
+      filter: "blur(4px)"
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const titleVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: -20,
+      filter: "blur(4px)"
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
   };
 
   return (
     <AboutContainer>
       <Section>
-        <Title>Ben Kimim?</Title>
-        <AboutGrid>
+        <Title
+          as={motion.h2}
+          variants={titleVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
+          Ben Kimim?
+        </Title>
+        <AboutGrid
+          as={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
           {[
             {
               icon: <FaLaptopCode />,
@@ -319,13 +388,7 @@ const About = () => {
             <AboutCard
               key={index}
               variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ 
-                duration: 0.3,
-                delay: index * 0.1
-              }}
+              viewport={{ once: false, amount: 0.2 }}
             >
               <CardTitle>
                 {card.icon}
@@ -340,23 +403,36 @@ const About = () => {
       </Section>
 
       <Section id="skills">
-        <Title>Yeteneklerim</Title>
+        <Title
+          as={motion.h2}
+          variants={titleVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
+          Yeteneklerim
+        </Title>
         <AnimatedSkills />
-        <SkillsContainer>
+        <SkillsContainer
+          as={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
           {skills.map((skill, index) => (
             <SkillCard
               key={index}
               variants={skillVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ 
-                duration: 0.3,
-                delay: index * 0.1
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
               }}
+              viewport={{ once: false, amount: 0.2 }}
             >
               {skill.icon}
               <SkillName>{skill.name}</SkillName>
+              <SkillLevel progress={skill.level} />
             </SkillCard>
           ))}
         </SkillsContainer>

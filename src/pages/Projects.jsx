@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const ProjectsContainer = styled.div`
   padding: 2rem 0;
@@ -19,7 +20,7 @@ const ProjectGrid = styled.div`
   gap: 2rem;
 `;
 
-const ProjectCard = styled.div`
+const ProjectCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 1.5rem;
@@ -183,12 +184,53 @@ const Projects = () => {
     }
   };
 
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.95,
+      filter: "blur(4px)"
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   return (
     <ProjectsContainer id="projects">
       <Title>Projelerim</Title>
-      <ProjectGrid>
+      <ProjectGrid
+        as={motion.div}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+      >
         {displayedProjects.map((project, index) => (
-          <ProjectCard key={index}>
+          <ProjectCard
+            key={index}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
             <ProjectTitle>{project.title}</ProjectTitle>
             <ProjectDescription>{project.description}</ProjectDescription>
             <TechStack>
@@ -211,7 +253,16 @@ const Projects = () => {
           </ProjectCard>
         ))}
       </ProjectGrid>
-      <ToggleButton onClick={toggleProjects}>
+      <ToggleButton
+        as={motion.button}
+        onClick={toggleProjects}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.3 }}
+      >
         {showAllProjects ? 'Daha Az Göster' : 'Daha Fazla Göster'}
       </ToggleButton>
     </ProjectsContainer>
