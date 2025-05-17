@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Lottie from 'lottie-react';
 import { motion } from 'framer-motion';
+import codingAnimation from '../assets/animations/coding-animation.json';
+import frontendAnimation from '../assets/animations/frontend-animation.json';
+import mobileAnimation from '../assets/animations/mobile-animation.json';
 
 const AnimationContainer = styled(motion.div)`
   display: grid;
@@ -108,6 +111,7 @@ const LottieWrapper = styled(motion.div)`
   align-items: center;
   justify-content: center;
   z-index: 1;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     width: 180px;
@@ -143,27 +147,28 @@ const AnimatedSkills = () => {
     react: null,
     mobile: null
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadAnimations = async () => {
+    const loadAllAnimations = async () => {
+      setIsLoading(true);
       try {
-        const [codingData, reactData, mobileData] = await Promise.all([
-          fetch('https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json').then(r => r.json()),
-          fetch('https://assets9.lottiefiles.com/packages/lf20_kkflmtur.json').then(r => r.json()),
-          fetch('https://assets10.lottiefiles.com/packages/lf20_pNx6yH.json').then(r => r.json())
-        ]);
+        const defaultAnimations = {
+          coding: codingAnimation,
+          react: frontendAnimation,
+          mobile: mobileAnimation
+        };
 
-        setAnimations({
-          coding: codingData,
-          react: reactData,
-          mobile: mobileData
-        });
+        // İlk olarak varsayılan animasyonları yükle
+        setAnimations(defaultAnimations);
       } catch (error) {
         console.error('Error loading animations:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    loadAnimations();
+    loadAllAnimations();
   }, []);
 
   const containerVariants = {
@@ -246,23 +251,45 @@ const AnimatedSkills = () => {
     }
   };
 
-  if (!animations.coding || !animations.react || !animations.mobile) {
-    return <LoadingText>Animasyonlar yükleniyor...</LoadingText>;
+  if (isLoading) {
+    return (
+      <LoadingText>
+        Animasyonlar yükleniyor...
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 1, 0.5]
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            background: "linear-gradient(45deg, #81d4fa, #4fc3f7)",
+            margin: "1rem auto"
+          }}
+        />
+      </LoadingText>
+    );
   }
 
   const animationItems = [
     {
-      data: animations.coding,
+      data: codingAnimation,
       title: "Yazılım Geliştirme",
       description: "Modern teknolojilerle web ve masaüstü uygulamaları geliştirme"
     },
     {
-      data: animations.react,
+      data: frontendAnimation,
       title: "Frontend Teknolojileri",
       description: "React ve modern frontend araçlarıyla kullanıcı deneyimi odaklı geliştirme"
     },
     {
-      data: animations.mobile,
+      data: mobileAnimation,
       title: "Flutter Geliştirme",
       description: "Flutter ile iOS ve Android için çapraz platform mobil uygulamalar"
     }
@@ -286,13 +313,16 @@ const AnimatedSkills = () => {
           }}
           transition={{ duration: 0.2 }}
         >
-          <LottieWrapper
-            variants={lottieVariants}
-          >
+          <LottieWrapper variants={lottieVariants}>
             <Lottie
               animationData={item.data}
               loop={true}
+              autoplay={true}
               style={{ width: '100%', height: '100%' }}
+              rendererSettings={{
+                preserveAspectRatio: 'xMidYMid slice',
+                progressiveLoad: true
+              }}
             />
           </LottieWrapper>
           <AnimationTitle variants={titleVariants}>

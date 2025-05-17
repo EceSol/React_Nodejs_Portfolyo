@@ -102,7 +102,9 @@ const Home = () => {
   };
 
   return (
-    <HomeContainer
+    
+    <HomeContainer 
+    
       as={motion.div}
       variants={containerVariants}
       initial="hidden"
@@ -114,14 +116,16 @@ const Home = () => {
       >
         Merhaba, Ben Ece Sol
       </Title>
+      
       <Subtitle
         variants={itemVariants}
       >
-        Evet, soldaki benim. Sizlerle bir yola çıkmak için burdayım.
+        Evet, bu gördüğünüz benim. Sizlerle bir yola çıkmak için burdayım.
         Yazılım geliştirme tutkusu ile hareket eden, yenilikçi çözümler üreten
         bir geliştiriciyim.
       </Subtitle>
     </HomeContainer>
+    
   );
 };
 
