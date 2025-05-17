@@ -35,14 +35,25 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled(motion.div)`
-  font-size: 2rem;
-  font-weight: bold;
-  color: #81d4fa;
+  height: 40px;
   cursor: pointer;
   z-index: 1001;
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 100%;
+    width: auto;
+    filter: brightness(1.2);
+    transition: filter 0.3s ease;
+  }
+
+  &:hover img {
+    filter: brightness(1.4);
+  }
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    height: 35px;
   }
 `;
 
@@ -247,7 +258,7 @@ const Navigation = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
-        ES
+        <img src="/logo.png" alt="ES Logo" />
       </Logo>
       <MenuButton
         onClick={() => setIsMenuOpen(!isMenuOpen)}
