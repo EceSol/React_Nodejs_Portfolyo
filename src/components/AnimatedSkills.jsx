@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import styled from 'styled-components';
 import Lottie from 'lottie-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import codingAnimation from '../assets/animations/coding-animation.json';
 import frontendAnimation from '../assets/animations/frontend-animation.json';
 import mobileAnimation from '../assets/animations/mobile-animation.json';
@@ -14,6 +14,19 @@ const AnimationContainer = styled(motion.div)`
   max-width: 1200px;
   padding: 0 1rem;
   will-change: transform, opacity;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(129, 212, 250, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -36,18 +49,41 @@ const AnimationWrapper = styled(motion.div)`
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 2rem;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
   will-change: transform;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(129, 212, 250, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
-    transform: translateY(-5px);
-    border-color: rgba(129, 212, 250, 0.3);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(129, 212, 250, 0.4);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.15),
+      0 0 20px rgba(129, 212, 250, 0.2);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(0.98);
   }
 
   @media (max-width: 768px) {
@@ -171,19 +207,53 @@ const lottieOptions = {
   }
 };
 
-const AnimationCard = memo(({ data, title, description }) => (
-  <AnimationWrapper variants={itemVariants}>
-    <LottieWrapper>
-      <Lottie
-        animationData={data}
-        {...lottieOptions}
-        style={{ width: '100%', height: '100%' }}
-      />
-    </LottieWrapper>
-    <AnimationTitle>{title}</AnimationTitle>
-    <AnimationDescription>{description}</AnimationDescription>
-  </AnimationWrapper>
-));
+const AnimationCard = memo(({ data, title, description }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <AnimationWrapper
+      variants={itemVariants}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={() => setIsExpanded(!isExpanded)}
+      animate={{
+        scale: isExpanded ? 1.03 : 1,
+        boxShadow: isExpanded 
+          ? '0 15px 50px rgba(0, 0, 0, 0.2), 0 0 30px rgba(129, 212, 250, 0.3)'
+          : '0 8px 30px rgba(0, 0, 0, 0.12)'
+      }}
+    >
+      <LottieWrapper
+        animate={{
+          scale: isExpanded ? 1.1 : 1,
+          transition: { duration: 0.3 }
+        }}
+      >
+        <Lottie
+          animationData={data}
+          {...lottieOptions}
+          style={{ width: '100%', height: '100%' }}
+          speed={isExpanded ? 1.2 : 1}
+        />
+      </LottieWrapper>
+      <AnimationTitle
+        animate={{
+          scale: isExpanded ? 1.05 : 1,
+          color: isExpanded ? '#90caf9' : '#81d4fa'
+        }}
+      >
+        {title}
+      </AnimationTitle>
+      <AnimationDescription
+        animate={{
+          opacity: isExpanded ? 1 : 0.8
+        }}
+      >
+        {description}
+      </AnimationDescription>
+    </AnimationWrapper>
+  );
+});
 
 const AnimatedSkills = () => {
   return (
@@ -193,14 +263,16 @@ const AnimatedSkills = () => {
       whileInView="visible"
       viewport={{ once: false, amount: 0.2 }}
     >
-      {animationItems.map((item, index) => (
-        <AnimationCard
-          key={index}
-          data={item.data}
-          title={item.title}
-          description={item.description}
-        />
-      ))}
+      <AnimatePresence>
+        {animationItems.map((item, index) => (
+          <AnimationCard
+            key={index}
+            data={item.data}
+            title={item.title}
+            description={item.description}
+          />
+        ))}
+      </AnimatePresence>
     </AnimationContainer>
   );
 };
