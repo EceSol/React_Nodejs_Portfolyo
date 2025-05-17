@@ -13,11 +13,11 @@ const Nav = styled.nav`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: linear-gradient(to right, 
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(13, 71, 161, 0.95) 40%,
-    rgba(21, 101, 192, 0.95) 70%,
-    rgba(25, 118, 210, 0.95) 100%
+  background: linear-gradient(to right,
+  rgba(0, 0, 0, 0.95) 0%,
+  rgba(13, 71, 161, 0.95) 40%,
+  rgba(21, 101, 192, 0.95) 70%,
+  rgba(25, 118, 210, 0.95) 100%
   );
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(129, 212, 250, 0.2);
@@ -26,10 +26,10 @@ const Nav = styled.nav`
   @media (max-width: 768px) {
     padding: 0 1rem;
     height: 50px;
-    background: linear-gradient(to right, 
-      rgba(0, 0, 0, 0.98) 0%,
-      rgba(13, 71, 161, 0.98) 40%,
-      rgba(21, 101, 192, 0.98) 100%
+    background: linear-gradient(to right,
+    rgba(0, 0, 0, 0.98) 0%,
+    rgba(13, 71, 161, 0.98) 40%,
+    rgba(21, 101, 192, 0.98) 100%
     );
   }
 `;
@@ -70,10 +70,10 @@ const NavItems = styled(motion.div)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, 
-      rgba(0, 0, 0, 0.98) 0%,
-      rgba(13, 71, 161, 0.98) 50%,
-      rgba(21, 101, 192, 0.98) 100%
+    background: linear-gradient(135deg,
+    rgba(0, 0, 0, 0.98) 0%,
+    rgba(13, 71, 161, 0.98) 50%,
+    rgba(21, 101, 192, 0.98) 100%
     );
     padding-top: 70px;
     gap: 2rem;
@@ -107,9 +107,9 @@ const NavItem = styled(motion.a)`
     width: 0;
     height: 2px;
     background: linear-gradient(
-      to right,
-      #81d4fa 0%,
-      #b3e5fc 100%
+        to right,
+        #81d4fa 0%,
+        #b3e5fc 100%
     );
     transition: width 0.3s ease;
   }
@@ -134,12 +134,12 @@ const NavItem = styled(motion.a)`
     margin: 0.5rem 0;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    
+
     &:active {
       background: rgba(129, 212, 250, 0.25);
       transform: translateY(1px);
     }
-    
+
     &:hover {
       background: rgba(129, 212, 250, 0.2);
       border-color: rgba(129, 212, 250, 0.3);
@@ -169,11 +169,11 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   const menuVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: -20
     },
-    visible: { 
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
@@ -191,11 +191,11 @@ const Navigation = () => {
   };
 
   const itemVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: 20
     },
-    visible: { 
+    visible: {
       opacity: 1,
       y: 0
     }
@@ -204,7 +204,7 @@ const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -234,7 +234,7 @@ const Navigation = () => {
         top: offsetPosition,
         behavior: 'smooth'
       });
-      
+
       setIsMenuOpen(false);
     }
   };
@@ -252,85 +252,88 @@ const Navigation = () => {
   }, [isMenuOpen]);
 
   return (
-    <Nav>
-      <Logo
-        onClick={() => scrollToSection('home')}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <img src="/logo.png" alt="ES Logo" />
-      </Logo>
-      <MenuButton
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {isMenuOpen ? '✕' : '☰'}
-      </MenuButton>
-      <AnimatePresence>
-        {(isMenuOpen || window.innerWidth > 768) && (
-          <NavItems
-            $isOpen={isMenuOpen}
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <NavItem
-              variants={itemVariants}
-              onClick={() => scrollToSection('about')}
-              style={{
-                color: activeSection === 'about' ? '#b3e5fc' : undefined,
-                background: activeSection === 'about' ? 'rgba(129, 212, 250, 0.1)' : undefined
-              }}
-            >
-              Ben Kimim?
-            </NavItem>
-            <NavItem
-              variants={itemVariants}
-              onClick={() => scrollToSection('skills')}
-              style={{
-                color: activeSection === 'skills' ? '#b3e5fc' : undefined,
-                background: activeSection === 'skills' ? 'rgba(129, 212, 250, 0.1)' : undefined
-              }}
-            >
-              Yeteneklerim
-            </NavItem>
-            <NavItem
-              variants={itemVariants}
-              onClick={() => scrollToSection('projects')}
-              style={{
-                color: activeSection === 'projects' ? '#b3e5fc' : undefined,
-                background: activeSection === 'projects' ? 'rgba(129, 212, 250, 0.1)' : undefined
-              }}
-            >
-              Projeler
-            </NavItem>
-            <NavItem
-              variants={itemVariants}
-              onClick={() => scrollToSection('experience')}
-              style={{
-                color: activeSection === 'experience' ? '#b3e5fc' : undefined,
-                background: activeSection === 'experience' ? 'rgba(129, 212, 250, 0.1)' : undefined
-              }}
-            >
-              Deneyim
-            </NavItem>
-            <NavItem
-              variants={itemVariants}
-              onClick={() => scrollToSection('contact')}
-              style={{
-                color: activeSection === 'contact' ? '#b3e5fc' : undefined,
-                background: activeSection === 'contact' ? 'rgba(129, 212, 250, 0.1)' : undefined
-              }}
-            >
-              İletişim
-            </NavItem>
-          </NavItems>
-        )}
-      </AnimatePresence>
-    </Nav>
+      <Nav>
+        <Logo
+            onClick={() => scrollToSection('home')}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+        >
+          <img src="/logo.png" alt="ES Logo" />
+        </Logo>
+        <MenuButton
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+        >
+          {isMenuOpen ? '✕' : '☰'}
+        </MenuButton>
+        <AnimatePresence>
+          {(isMenuOpen || window.innerWidth > 768) && (
+              <NavItems
+                  $isOpen={isMenuOpen}
+                  variants={menuVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  style={{
+                    height: 'fit-content',
+                  }}
+              >
+                <NavItem
+                    variants={itemVariants}
+                    onClick={() => scrollToSection('about')}
+                    style={{
+                      color: activeSection === 'about' ? '#b3e5fc' : undefined,
+                      background: activeSection === 'about' ? 'rgba(129, 212, 250, 0.1)' : undefined,
+                    }}
+                >
+                  Ben Kimim?
+                </NavItem>
+                <NavItem
+                    variants={itemVariants}
+                    onClick={() => scrollToSection('skills')}
+                    style={{
+                      color: activeSection === 'skills' ? '#b3e5fc' : undefined,
+                      background: activeSection === 'skills' ? 'rgba(129, 212, 250, 0.1)' : undefined
+                    }}
+                >
+                  Yeteneklerim
+                </NavItem>
+                <NavItem
+                    variants={itemVariants}
+                    onClick={() => scrollToSection('projects')}
+                    style={{
+                      color: activeSection === 'projects' ? '#b3e5fc' : undefined,
+                      background: activeSection === 'projects' ? 'rgba(129, 212, 250, 0.1)' : undefined
+                    }}
+                >
+                  Projeler
+                </NavItem>
+                <NavItem
+                    variants={itemVariants}
+                    onClick={() => scrollToSection('experience')}
+                    style={{
+                      color: activeSection === 'experience' ? '#b3e5fc' : undefined,
+                      background: activeSection === 'experience' ? 'rgba(129, 212, 250, 0.1)' : undefined
+                    }}
+                >
+                  Deneyim
+                </NavItem>
+                <NavItem
+                    variants={itemVariants}
+                    onClick={() => scrollToSection('contact')}
+                    style={{
+                      color: activeSection === 'contact' ? '#b3e5fc' : undefined,
+                      background: activeSection === 'contact' ? 'rgba(129, 212, 250, 0.1)' : undefined
+                    }}
+                >
+                  İletişim
+                </NavItem>
+              </NavItems>
+          )}
+        </AnimatePresence>
+      </Nav>
   );
 };
 
-export default Navigation;
+export default Navigation;
