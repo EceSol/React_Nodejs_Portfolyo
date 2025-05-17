@@ -53,16 +53,19 @@ const NavItems = styled(motion.div)`
     right: 0;
     bottom: 0;
     background: linear-gradient(to bottom, 
-      #000000 0%,
-      #0d47a1 40%,
-      #1565c0 70%,
-      #1976d2 100%
+      rgba(0, 0, 0, 0.98) 0%,
+      rgba(13, 71, 161, 0.98) 40%,
+      rgba(21, 101, 192, 0.98) 70%,
+      rgba(25, 118, 210, 0.98) 100%
     );
     padding-top: 70px;
     gap: 2rem;
     align-items: center;
     justify-content: flex-start;
-    z-index: 1000;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    touch-action: none;
   }
 `;
 
@@ -76,6 +79,7 @@ const NavItem = styled(motion.a)`
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 
   &:before {
     content: '';
@@ -106,6 +110,13 @@ const NavItem = styled(motion.a)`
     padding: 1rem 2rem;
     width: 80%;
     text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0.5rem 0;
+    
+    &:active {
+      background: rgba(129, 212, 250, 0.2);
+    }
     
     &:hover {
       background: rgba(129, 212, 250, 0.15);
