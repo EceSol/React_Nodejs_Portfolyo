@@ -354,6 +354,9 @@ const Projects = () => {
     >
       <RevealContainer
         variants={revealVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
       >
         <Title>
           Projelerim
@@ -362,6 +365,9 @@ const Projects = () => {
 
       <RevealContainer
         variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
       >
         <ProjectGrid>
           {featuredProjects.map((project, index) => (
@@ -418,7 +424,8 @@ const Projects = () => {
         <RevealContainer
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
         >
           <ProjectGrid>
             {additionalProjects.map((project, index) => (
