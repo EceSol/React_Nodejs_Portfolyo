@@ -221,11 +221,9 @@ const ShowMoreButton = styled(motion.button)`
 
 const Projects = () => {
   const [showAllProjects, setShowAllProjects] = useState(false);
-  const controls = useAnimation();
-  const { scrollY } = useScroll();
   const [ref, inView] = useInView({
-    threshold: 0.2,
-    triggerOnce: true
+    threshold: 0.1,
+    triggerOnce: false
   });
 
   const featuredProjects = [
@@ -265,12 +263,17 @@ const Projects = () => {
   ];
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.5,
-        staggerChildren: 0.2
+        duration: 0.4,
+        ease: "easeOut",
+        staggerChildren: 0.15
       }
     }
   };
@@ -279,14 +282,14 @@ const Projects = () => {
     hidden: { 
       opacity: 0,
       y: 20,
-      filter: "blur(5px)"
+      scale: 0.95
     },
     visible: { 
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
+      scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.3,
         ease: "easeOut"
       }
     }
@@ -295,40 +298,26 @@ const Projects = () => {
   const revealVariants = {
     hidden: { 
       opacity: 0,
-      y: 30,
-      skewY: 1,
-      filter: "blur(5px)"
+      y: 20
     },
     visible: { 
       opacity: 1,
       y: 0,
-      skewY: 0,
-      filter: "blur(0px)",
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: "easeOut"
       }
     }
   };
 
-  useEffect(() => {
-    if (inView || showAllProjects) {
-      controls.start('visible');
-    }
-  }, [controls, inView, showAllProjects]);
-
   const handleShowMore = () => {
     setShowAllProjects(true);
-    // After state update, ensure animations are triggered
-    setTimeout(() => {
-      controls.start('visible');
-    }, 100);
   };
 
   const handleShowLess = () => {
-    const projectsTitle = document.querySelector('#projects h2');
+    const projectsTitle = document.querySelector('#projects');
     if (projectsTitle) {
-      const headerOffset = 100; // Biraz daha fazla offset ekledim başlığın tam görünmesi için
+      const headerOffset = 80;
       const elementPosition = projectsTitle.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       
@@ -337,10 +326,9 @@ const Projects = () => {
         behavior: 'smooth'
       });
       
-      // Scroll başladıktan kısa bir süre sonra state'i güncelle
       setTimeout(() => {
         setShowAllProjects(false);
-      }, 300); // Scroll başladıktan sonra state'i güncelle
+      }, 300);
     }
   };
 
@@ -350,25 +338,16 @@ const Projects = () => {
       ref={ref}
       as={motion.div}
       initial="hidden"
-      animate={controls}
+      animate={inView ? "visible" : "hidden"}
+      variants={containerVariants}
     >
-      <RevealContainer
-        variants={revealVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-      >
+      <RevealContainer variants={revealVariants}>
         <Title>
           Projelerim
         </Title>
       </RevealContainer>
 
-      <RevealContainer
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-      >
+      <RevealContainer variants={containerVariants}>
         <ProjectGrid>
           {featuredProjects.map((project, index) => (
             <ProjectCard
@@ -424,8 +403,7 @@ const Projects = () => {
         <RevealContainer
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          animate="visible"
         >
           <ProjectGrid>
             {additionalProjects.map((project, index) => (
