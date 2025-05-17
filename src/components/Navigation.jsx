@@ -14,16 +14,23 @@ const Nav = styled.nav`
   right: 0;
   z-index: 1000;
   background: linear-gradient(to right, 
-    #000000 0%,
-    #0d47a1 40%,
-    #1565c0 70%,
-    #1976d2 100%
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(13, 71, 161, 0.95) 40%,
+    rgba(21, 101, 192, 0.95) 70%,
+    rgba(25, 118, 210, 0.95) 100%
   );
   backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(129, 212, 250, 0.2);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 768px) {
     padding: 0 1rem;
     height: 50px;
+    background: linear-gradient(to right, 
+      rgba(0, 0, 0, 0.98) 0%,
+      rgba(13, 71, 161, 0.98) 40%,
+      rgba(21, 101, 192, 0.98) 100%
+    );
   }
 `;
 
@@ -52,11 +59,10 @@ const NavItems = styled(motion.div)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, 
+    background: linear-gradient(135deg, 
       rgba(0, 0, 0, 0.98) 0%,
-      rgba(13, 71, 161, 0.98) 40%,
-      rgba(21, 101, 192, 0.98) 70%,
-      rgba(25, 118, 210, 0.98) 100%
+      rgba(13, 71, 161, 0.98) 50%,
+      rgba(21, 101, 192, 0.98) 100%
     );
     padding-top: 70px;
     gap: 2rem;
@@ -66,6 +72,7 @@ const NavItems = styled(motion.div)`
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     touch-action: none;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -110,16 +117,21 @@ const NavItem = styled(motion.a)`
     padding: 1rem 2rem;
     width: 80%;
     text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    background: rgba(25, 118, 210, 0.15);
+    border: 1px solid rgba(129, 212, 250, 0.2);
     margin: 0.5rem 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     
     &:active {
-      background: rgba(129, 212, 250, 0.2);
+      background: rgba(129, 212, 250, 0.25);
+      transform: translateY(1px);
     }
     
     &:hover {
-      background: rgba(129, 212, 250, 0.15);
+      background: rgba(129, 212, 250, 0.2);
+      border-color: rgba(129, 212, 250, 0.3);
     }
   }
 `;
