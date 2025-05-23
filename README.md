@@ -8,4 +8,4 @@ aktif görüntü: https://ecesol.vercel.app
 
 ## Lisans
 
-MIT
+All rights reserved © 2025 Ece Sol
