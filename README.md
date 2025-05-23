@@ -8,4 +8,4 @@ aktif görüntü: https://ecesol.vercel.app
 
 ## Lisans
 
-All rights reserved © 2025 Ece Sol
+Apache License 2.0
